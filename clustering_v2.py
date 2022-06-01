@@ -1,4 +1,4 @@
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans, AffinityPropagation
 import matplotlib.pyplot as plt
 import numpy as np
 from dataclasses import dataclass
@@ -11,6 +11,16 @@ class KMeansParams:
     init: str = "k-means++"
     max_iter: int = 300
     algorithm: str = "auto"
+
+
+@dataclass
+class AffinityParams:
+    damping: float = 0.5
+    max_iter: int = 200
+    convergence_iter: int = 15
+    affinity: str = 'euclidean'
+    random_state: int = None
+
 
 class Clustering:
 
@@ -56,15 +66,15 @@ class Cluster:
 
 
 class ClusterHolder:
-    def __init__(self, data, labels, n_clusters, center_points=None):
+    def __init__(self, data, labels, center_points=None):
         self.clusters = list()
         self.data = data
         self.labels = labels
-        self.n_clusters = n_clusters
+        self.n_clusters = len(np.unique(labels))
         if center_points is not None:
             self.center_points = center_points
         else:
-            self.center_points = [None] * n_clusters
+            self.center_points = [None] * self.n_clusters
 
         self.split_into_clusters()
 
@@ -195,10 +205,82 @@ class ClusterKMeans(Clustering):
             plt.scatter(cluster.central_node[0], cluster.central_node[1], color='red')
         plt.show()
 
+
+class ClusterAffinity(Clustering):
+    def __init__(self):
+        super().__init__()
+        self.data = None
+        self.clustering = None
+        self.labels = None
+        self.center_points = None
+        self.params = AffinityParams()
+
+        self.get_data()
+        self.get_params()
+        self.get_clustering()
+        self.find_labels()
+        self.get_central_points()
+        self.cluster = ClusterHolder(self.data, self.labels)
+
+        self.plot_clustering()
+
+    def find_labels(self):
+        self.labels = self.clustering.labels_
+        print("\n##### CLUSTERING LABELS #####")
+        print(self.labels)
+
+    def get_central_points(self):
+        self.center_points = self.clustering.cluster_centers_
+        print("\n##### CENTER POINTS #####")
+        print(self.center_points)
+
+    def get_params(self, damping=None, max_iter=None, convergence_iter=None, affinity=None, random_state=None):
+        if damping is not None:
+            self.params.damping = damping
+        if max_iter is not None:
+            self.params.max_iter = max_iter
+        if convergence_iter is not None:
+            self.params.convergence_iter = convergence_iter
+        if affinity is not None:
+            self.params.affinity = affinity
+        if random_state is not None:
+            self.params.random_state = random_state
+
+        print("\n##### AFFINITY PROPAGATION PARAMETERS #####")
+        print(self.params)
+
+    def get_data(self):  # --> np.array
+        self.data = np.loadtxt("10.txt")
+        print("\n##### DATA #####")
+        print(self.data)
+
+    def get_clustering(self):
+        self.clustering = AffinityPropagation(damping=self.params.damping, max_iter=self.params.max_iter, convergence_iter=self.params.convergence_iter,
+                             affinity=self.params.affinity, random_state=self.params.random_state).fit(self.data)
+        print("\n##### KMEANS #####")
+        print(self.clustering)
+
+    def plot_clustering(self):
+        for index, i in enumerate(self.cluster.clusters):
+            plt.scatter(i.center_point[0], i.center_point[1], color="red", marker="x", s=130)
+
+        # cmap = get_cmap(len(self.data))
+        # for i, (X,Y) in enumerate(self.data):
+        #     plt.scatter(X, Y, color=cmap(i))
+        #     plt.annotate(i, (X, Y))
+
+        for i, (X, Y) in enumerate(self.data):
+            plt.scatter(X, Y, color=self.colorspace[i % len(self.colorspace)])
+            plt.annotate(i, (X, Y))
+
+        for cluster in self.cluster.clusters:
+            plt.scatter(cluster.central_node[0], cluster.central_node[1], color='red')
+        plt.show()
+
 def get_cmap(n, name='hsv'):
     '''Returns a function that maps each index in 0, 1, ..., n-1 to a distinct
     RGB color; the keyword argument name must be a standard mpl colormap name.'''
     return plt.cm.get_cmap(name, n+1)
 
 if __name__ == '__main__':
-    kmeans = ClusterKMeans()
+    kmeans = ClusterAffinity()
