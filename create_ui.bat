@@ -1,0 +1,1 @@
+pyuic5 -x final.ui -o ui.py
