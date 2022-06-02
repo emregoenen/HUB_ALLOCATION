@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from utils import ClusterHolder
 from params import AffinityParams, MeanShiftParams, KMeansParams, SpectralParams, HierarchicalParams, DBSCANParams
-from sklearn.preprocessing import StandardScaler
 
 
 class Clustering:
