@@ -6,24 +6,23 @@ from params import AffinityParams, MeanShiftParams, KMeansParams, SpectralParams
 
 
 class Clustering:
-    def __init__(self, data):
+    def __init__(self, data, params):
         self.colorspace = np.array(
             ["purple", "cyan", "green", "orange", "brown", "gray", "magenta", "blue", "yellow", "pink"])
+        self.params = params
         self.data = data
         self.labels = None
-        # self.center_points = None
         self.clustering = None
-        self.get_params()
+        self.print_params()
         self.get_clustering()
         self.find_labels()
-        # self.get_central_points()
         self.cluster = ClusterHolder(self.data, self.labels)
         self.plot_clustering()
 
-    def get_params(self):  # override this function
+    def get_clustering(self):  # override this function
         ...
 
-    def get_clustering(self):  # override this function
+    def print_params(self): # override this function
         ...
 
     def find_labels(self):
@@ -31,23 +30,9 @@ class Clustering:
         print("\n##### CLUSTERING LABELS #####")
         print(self.labels)
 
-    # def get_central_points(self):
-    #     self.center_points = self.clustering.cluster_centers_
-    #     print("\n##### CENTER POINTS #####")
-    #     print(self.center_points)
-
     def plot_clustering(self):
         for index, i in enumerate(self.cluster.clusters):
             plt.scatter(i.center_point[0], i.center_point[1], color="red", marker="x", s=130)
-
-        # cmap = get_cmap(len(self.data))
-        # for i, (X,Y) in enumerate(self.data):
-        #     plt.scatter(X, Y, color=cmap(i))
-        #     plt.annotate(i, (X, Y))
-
-        # for i, (X, Y) in enumerate(self.data):
-        #     plt.scatter(X, Y, color=self.colorspace[i % len(self.colorspace)])
-        #     plt.annotate(i, (X, Y))
 
         for i, (X, Y) in enumerate(self.data):
             plt.scatter(X, Y, color=self.colorspace[self.labels[i] % len(self.colorspace)])
@@ -57,28 +42,12 @@ class Clustering:
             plt.scatter(cluster.central_node[0], cluster.central_node[1], color='red')
         plt.show()
 
-    @staticmethod
-    def get_cmap(n, name='hsv'):
-        '''Returns a function that maps each index in 0, 1, ..., n-1 to a distinct
-        RGB color; the keyword argument name must be a standard mpl colormap name.'''
-        return plt.cm.get_cmap(name, n + 1)
-
 
 class ClusterKMeans(Clustering):
-    def __init__(self, data):
-        self.params = KMeansParams()
-        super().__init__(data)
+    def __init__(self, data, params):
+        super().__init__(data, params)
 
-    def get_params(self, n_clusters=None, init=None, max_iter=None, algorithm=None):
-        if n_clusters is not None:
-            self.params.n_clusters = n_clusters
-        if init is not None:
-            self.params.init = init
-        if max_iter is not None:
-            self.params.max_iter = max_iter
-        if algorithm is not None:
-            self.params.algorithm = algorithm
-
+    def print_params(self):
         print("\n##### K-MEANS PARAMETERS #####")
         print(self.params)
 
@@ -89,22 +58,10 @@ class ClusterKMeans(Clustering):
 
 
 class ClusterAffinity(Clustering):
-    def __init__(self, data):
-        self.params = AffinityParams()
-        super().__init__(data)
+    def __init__(self, data, params):
+        super().__init__(data, params)
 
-    def get_params(self, damping=None, max_iter=None, convergence_iter=None, affinity=None, random_state=None):
-        if damping is not None:
-            self.params.damping = damping
-        if max_iter is not None:
-            self.params.max_iter = max_iter
-        if convergence_iter is not None:
-            self.params.convergence_iter = convergence_iter
-        if affinity is not None:
-            self.params.affinity = affinity
-        if random_state is not None:
-            self.params.random_state = random_state
-
+    def print_params(self):
         print("\n##### AFFINITY PROPAGATION PARAMETERS #####")
         print(self.params)
 
@@ -116,18 +73,10 @@ class ClusterAffinity(Clustering):
 
 
 class ClusterMeanShift(Clustering):
-    def __init__(self, data):
-        self.params = MeanShiftParams()
-        super().__init__(data)
+    def __init__(self, data, params):
+        super().__init__(data, params)
 
-    def get_params(self, bandwidth=None, max_iter=None, cluster_all=None):
-        if bandwidth is not None:
-            self.params.damping = bandwidth
-        if max_iter is not None:
-            self.params.max_iter = max_iter
-        if cluster_all is not None:
-            self.params.convergence_iter = cluster_all
-
+    def print_params(self):
         print("\n##### MEAN SHIFT PARAMETERS #####")
         print(self.params)
 
@@ -138,20 +87,10 @@ class ClusterMeanShift(Clustering):
 
 
 class ClusterSpectral(Clustering):
-    def __init__(self, data):
-        self.params = SpectralParams()
-        super().__init__(data)
+    def __init__(self, data, params):
+        super().__init__(data, params)
 
-    def get_params(self, n_clusters=None, n_components=None, n_init=None, assign_labels=None):
-        if n_clusters is not None:
-            self.params.n_clusters = n_clusters
-        if n_components is not None:
-            self.params.n_components = n_components
-        if n_init is not None:
-            self.params.n_init = n_init
-        if assign_labels is not None:
-            self.params.assign_labels = assign_labels
-
+    def print_params(self):
         print("\n##### SPECTRAL CLUSTERING PARAMETERS #####")
         print(self.params)
 
@@ -162,18 +101,10 @@ class ClusterSpectral(Clustering):
 
 
 class ClusterHierarchical(Clustering):
-    def __init__(self, data):
-        self.params = HierarchicalParams()
-        super().__init__(data)
+    def __init__(self, data, params):
+        super().__init__(data, params)
 
-    def get_params(self, n_clusters=None, affinity=None, linkage=None):
-        if n_clusters is not None:
-            self.params.n_clusters = n_clusters
-        if affinity is not None:
-            self.params.affinity = affinity
-        if linkage is not None:
-            self.params.linkage = linkage
-
+    def print_params(self):
         print("\n##### HIERARCHICAL CLUSTERING PARAMETERS #####")
         print(self.params)
 
@@ -183,20 +114,10 @@ class ClusterHierarchical(Clustering):
         print(self.clustering)
 
 class ClusterDBSCAN(Clustering):
-    def __init__(self, data):
-        self.params = DBSCANParams()
-        super().__init__(data)
+    def __init__(self, data, params):
+        super().__init__(data, params)
 
-    def get_params(self, eps=None, min_samples=None, algorithm=None, p=None):
-        if eps is not None:
-            self.params.eps = eps
-        if min_samples is not None:
-            self.params.min_samples = min_samples
-        if algorithm is not None:
-            self.params.algorithm = algorithm
-        if p is not None:
-            self.params.p = p
-
+    def print_params(self):
         print("\n##### DBSCAN PARAMETERS #####")
         print(self.params)
 

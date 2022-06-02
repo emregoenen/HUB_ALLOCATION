@@ -7,7 +7,8 @@ from dbscan_params import Ui_Form as Ui_Form_DBSCAN
 from hierarchical_params import Ui_Form as Ui_Form_Hierarchical
 from spectral_params import Ui_Form as Ui_Form_Spectral
 from mean_shift_params import Ui_Form as Ui_Form_MeanShift
-from clustering_v2 import ClusterKMeans
+from clustering_v2 import ClusterKMeans, ClusterAffinity, ClusterDBSCAN, ClusterMeanShift, ClusterSpectral, ClusterHierarchical
+from params import KMeansParams, MeanShiftParams, SpectralParams, AffinityParams, DBSCANParams, HierarchicalParams
 
 
 class Driver:
@@ -65,7 +66,7 @@ class Driver:
         init = self.kmeans_ui.init.currentText()
         max_iter = int(self.kmeans_ui.max_iter.text())
         algorithm = self.kmeans_ui.algorithm.currentText()
-        ClusterKMeans(self.data)
+        ClusterKMeans(self.data, KMeansParams(n_clusters, init, max_iter, algorithm))
 
     def open_affinity(self):
         self.affinity_widget.show()
@@ -76,6 +77,7 @@ class Driver:
         convergence_iter = int(self.affinity_ui.convergence_iter.text())
         affinity = self.affinity_ui.affinity.currentText()
         random_state = int(self.affinity_ui.random_state.text())
+        ClusterAffinity(self.data, AffinityParams(damping, max_iter, convergence_iter, affinity, random_state))
 
     def open_dbscan(self):
         self.dbscan_widget.show()
@@ -85,6 +87,7 @@ class Driver:
         min_samples = int(self.dbscan_ui.min_samples.text())
         algorithm = self.dbscan_ui.algorithm.currentText()
         p = float(self.dbscan_ui.p.text())
+        ClusterDBSCAN(self.data, DBSCANParams(eps, min_samples, algorithm, p))
 
     def open_hierarchical(self):
         self.hierarchical_widget.show()
@@ -93,6 +96,7 @@ class Driver:
         n_clusters = int(self.hierarchical_ui.n_clusters.text())
         affinity = self.hierarchical_ui.affinity.currentText()
         linkage = self.hierarchical_ui.linkage.currentText()
+        ClusterHierarchical(self.data, HierarchicalParams(n_clusters, affinity, linkage))
 
     def open_meanshift(self):
         self.meanshift_widget.show()
@@ -105,6 +109,7 @@ class Driver:
             cluster_all = True
         else:
             cluster_all = False
+        ClusterMeanShift(self.data, MeanShiftParams(bandwidth, max_iter, cluster_all))
 
     def open_spectral(self):
         self.spectral_widget.show()
@@ -114,6 +119,7 @@ class Driver:
         n_components = int(self.spectral_ui.n_components.text())
         n_init = int(self.spectral_ui.n_init.text())
         assign_labels = self.spectral_ui.assign_labels.currentText()
+        ClusterSpectral(self.data, SpectralParams(n_clusters, n_components, n_init, assign_labels))
 
     def create_widgets(self):
         self.kmeans_widget = QtWidgets.QWidget()
