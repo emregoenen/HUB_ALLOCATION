@@ -1,6 +1,7 @@
 from PyQt5 import QtGui, QtWidgets
 import numpy as np
 from functools import partial
+import matplotlib.pyplot as plt
 from k_means_params import Ui_Form as Ui_Form_K_Means
 from affinity_params import Ui_Form as Ui_Form_Affinity
 from dbscan_params import Ui_Form as Ui_Form_DBSCAN
@@ -9,6 +10,8 @@ from spectral_params import Ui_Form as Ui_Form_Spectral
 from mean_shift_params import Ui_Form as Ui_Form_MeanShift
 from clustering_v2 import ClusterKMeans, ClusterAffinity, ClusterDBSCAN, ClusterMeanShift, ClusterSpectral, ClusterHierarchical
 from params import KMeansParams, MeanShiftParams, SpectralParams, AffinityParams, DBSCANParams, HierarchicalParams
+from skimage import io
+from typing import Protocol
 
 
 class Driver:
@@ -16,6 +19,8 @@ class Driver:
         self.ui = ui
         self.input_image = None
         self.output_image = None
+        self.data = None
+        self.data = None
         self.save_path = None
         self.setup_icons()
         self.setup_signal_slots()
@@ -26,11 +31,11 @@ class Driver:
 
     def setup_signal_slots(self):
         self.ui.actionOpen_Data.triggered.connect(self.open_data)
-        self.ui.actionSave_Initial_Solution.triggered.connect(self.say_hello)
-        self.ui.actionSave_Final_Solution.triggered.connect(self.say_hello)
+        self.ui.actionSave_Initial_Solution.triggered.connect(self.save_initial_solution)
+        self.ui.actionSave_Final_Solution.triggered.connect(self.save_final_solution)
         self.ui.actionExit.triggered.connect(self.exit)
-        self.ui.actionClear_Initial_Solution.triggered.connect(self.say_hello)
-        self.ui.actionClear_Final_Solution.triggered.connect(self.say_hello)
+        self.ui.actionClear_Initial_Solution.triggered.connect(self.clear_initial_solution)
+        self.ui.actionClear_Final_Solution.triggered.connect(self.clear_final_solution)
         self.ui.actionUndo_Initial_Solution.triggered.connect(self.say_hello)
         self.ui.actionUndo_Final_Solution.triggered.connect(self.say_hello)
         self.ui.actionRedo_Initial_Solution.triggered.connect(self.say_hello)
@@ -43,17 +48,66 @@ class Driver:
         self.ui.actionDBSCAN.triggered.connect(self.open_dbscan)
         self.ui.actionHill_Climbing.triggered.connect(self.say_hello)
         self.ui.actionSimulated_Anneling.triggered.connect(self.say_hello)
-        self.ui.actionExport_As_Initial_Solution.triggered.connect(self.say_hello)
-        self.ui.actionExport_As_Final_Solution.triggered.connect(self.say_hello)
+        self.ui.actionExport_As_Initial_Solution.triggered.connect(self.export_as_initial_solution)
+        self.ui.actionExport_As_Final_Solution.triggered.connect(self.export_as_final_solution)
+
+    def save_initial_solution(self):
+        ...
+
+    def save_final_solution(self):
+        ...
+
+    def clear_initial_solution(self):
+        if self.input_image is not None:
+            self.ui.label_initialSolution.clear()
+            self.input_image = None
+
+    def clear_final_solution(self):
+        if self.output_image is not None:
+            self.ui.label_finalSolution.clear()
+            self.output_image = None
+
+    def export_as_initial_solution(self):
+        if self.input_image is not None:
+            self.save_path, _ = QtWidgets.QFileDialog.getSaveFileName(filter="Image files (*.jpg)")
+            if len(self.save_path) != 0:
+                output = self.input_image[:, :, :-1] # RGBA to RGB before saving (JPG DOES NOT SUPPORT RGBA)
+                io.imsave(self.save_path, output)
+                # self.check_save_buttons()
+        else:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning - Output is empty',
+                                          'You must process input image before saving.')
+
+    def export_as_final_solution(self):
+        if self.output_image is not None:
+            self.save_path, _ = QtWidgets.QFileDialog.getSaveFileName(filter="Image files (*.jpg)")
+            if len(self.save_path) != 0:
+                output = self.output_image[:, :, :-1] # RGBA to RGB before saving (JPG DOES NOT SUPPORT RGBA)
+                io.imsave(self.save_path, output)
+                # self.check_save_buttons()
+        else:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning - Output is empty',
+                                          'You must process input image before saving.')
+
 
     def open_data(self):
         try:
             fname, _ = QtWidgets.QFileDialog.getOpenFileName(filter="Text files (*.txt)")
             self.data = np.loadtxt(fname)
             print(self.data)
+            self.plot_initial_solution()
         except FileNotFoundError:
             QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
                                           "Couldn't open file.")
+
+    def plot_initial_solution(self):
+        plt.clf()
+        for i, (X,Y) in enumerate(self.data):
+            plt.scatter(X, Y, color='black')
+            plt.annotate(i, (X, Y))
+        plt.savefig("resources/temp/input.png")
+        self.input_image = io.imread("resources/temp/input.png")
+        self.ui.label_initialSolution.setPixmap(QtGui.QPixmap("resources/temp/input.png"))
 
     def say_hello(self):
         print("HELLO THERE !")
@@ -66,7 +120,10 @@ class Driver:
         init = self.kmeans_ui.init.currentText()
         max_iter = int(self.kmeans_ui.max_iter.text())
         algorithm = self.kmeans_ui.algorithm.currentText()
-        ClusterKMeans(self.data, KMeansParams(n_clusters, init, max_iter, algorithm))
+        ClusterKMeans(self.data, KMeansParams(n_clusters, init, max_iter, algorithm), self.ui)
+        self.kmeans_widget.hide()
+        self.output_image = io.imread("resources/temp/output.png")
+        self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
 
     def open_affinity(self):
         self.affinity_widget.show()
@@ -77,7 +134,10 @@ class Driver:
         convergence_iter = int(self.affinity_ui.convergence_iter.text())
         affinity = self.affinity_ui.affinity.currentText()
         random_state = int(self.affinity_ui.random_state.text())
-        ClusterAffinity(self.data, AffinityParams(damping, max_iter, convergence_iter, affinity, random_state))
+        ClusterAffinity(self.data, AffinityParams(damping, max_iter, convergence_iter, affinity, random_state), self.ui)
+        self.affinity_widget.hide()
+        self.output_image = io.imread("resources/temp/output.png")
+        self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
 
     def open_dbscan(self):
         self.dbscan_widget.show()
@@ -87,7 +147,10 @@ class Driver:
         min_samples = int(self.dbscan_ui.min_samples.text())
         algorithm = self.dbscan_ui.algorithm.currentText()
         p = float(self.dbscan_ui.p.text())
-        ClusterDBSCAN(self.data, DBSCANParams(eps, min_samples, algorithm, p))
+        ClusterDBSCAN(self.data, DBSCANParams(eps, min_samples, algorithm, p), self.ui)
+        self.dbscan_widget.hide()
+        self.output_image = io.imread("resources/temp/output.png")
+        self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
 
     def open_hierarchical(self):
         self.hierarchical_widget.show()
@@ -96,7 +159,10 @@ class Driver:
         n_clusters = int(self.hierarchical_ui.n_clusters.text())
         affinity = self.hierarchical_ui.affinity.currentText()
         linkage = self.hierarchical_ui.linkage.currentText()
-        ClusterHierarchical(self.data, HierarchicalParams(n_clusters, affinity, linkage))
+        ClusterHierarchical(self.data, HierarchicalParams(n_clusters, affinity, linkage), self.ui)
+        self.hierarchical_widget.hide()
+        self.output_image = io.imread("resources/temp/output.png")
+        self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
 
     def open_meanshift(self):
         self.meanshift_widget.show()
@@ -109,7 +175,10 @@ class Driver:
             cluster_all = True
         else:
             cluster_all = False
-        ClusterMeanShift(self.data, MeanShiftParams(bandwidth, max_iter, cluster_all))
+        ClusterMeanShift(self.data, MeanShiftParams(bandwidth, max_iter, cluster_all), self.ui)
+        self.meanshift_widget.hide()
+        self.output_image = io.imread("resources/temp/output.png")
+        self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
 
     def open_spectral(self):
         self.spectral_widget.show()
@@ -119,7 +188,10 @@ class Driver:
         n_components = int(self.spectral_ui.n_components.text())
         n_init = int(self.spectral_ui.n_init.text())
         assign_labels = self.spectral_ui.assign_labels.currentText()
-        ClusterSpectral(self.data, SpectralParams(n_clusters, n_components, n_init, assign_labels))
+        ClusterSpectral(self.data, SpectralParams(n_clusters, n_components, n_init, assign_labels), self.ui)
+        self.spectral_widget.hide()
+        self.output_image = io.imread("resources/temp/output.png")
+        self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
 
     def create_widgets(self):
         self.kmeans_widget = QtWidgets.QWidget()
