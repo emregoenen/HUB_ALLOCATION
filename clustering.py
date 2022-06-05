@@ -6,7 +6,7 @@ from params import AffinityParams, MeanShiftParams, KMeansParams, SpectralParams
 
 
 class Clustering:
-    def __init__(self, data, params, ui):
+    def __init__(self, data, params, ui, driver):
         self.colorspace = np.array(
             ["purple", "cyan", "green", "orange", "brown", "gray", "magenta", "blue", "yellow", "pink"])
         self.params = params
@@ -14,11 +14,19 @@ class Clustering:
         self.labels = None
         self.clustering = None
         self.ui = ui
+        self.driver = driver
         self.print_params()
         self.get_clustering()
         self.find_labels()
         self.cluster = ClusterHolder(self.data, self.labels)
         self.plot_clustering()
+        self.__post_init__()
+
+    def __post_init__(self):
+        self.driver.enable_save_export_initial_buttons()
+        self.driver.enable_heuristics_buttons()
+        self.driver.enable_initial_undo_redo_buttons()
+        self.driver.update_input_image()
 
     def get_cluster_holder(self):
         return self.cluster
@@ -54,8 +62,8 @@ class Clustering:
 
 
 class ClusterKMeans(Clustering):
-    def __init__(self, data, params, ui):
-        super().__init__(data, params, ui)
+    def __init__(self, data, params, ui, driver):
+        super().__init__(data, params, ui, driver)
 
     def print_params(self):
         self.ui.textBrowser_infoPanel.append("\n##### K-MEANS PARAMETERS #####")
@@ -73,8 +81,8 @@ class ClusterKMeans(Clustering):
 
 
 class ClusterAffinity(Clustering):
-    def __init__(self, data, params, ui):
-        super().__init__(data, params, ui)
+    def __init__(self, data, params, ui, driver):
+        super().__init__(data, params, ui, driver)
 
     def print_params(self):
         self.ui.textBrowser_infoPanel.append("\n##### AFFINITY PROPAGATION PARAMETERS #####")
@@ -92,8 +100,8 @@ class ClusterAffinity(Clustering):
 
 
 class ClusterMeanShift(Clustering):
-    def __init__(self, data, params, ui):
-        super().__init__(data, params, ui)
+    def __init__(self, data, params, ui, driver):
+        super().__init__(data, params, ui, driver)
 
     def print_params(self):
         self.ui.textBrowser_infoPanel.append("\n##### MEAN SHIFT PARAMETERS #####")
@@ -110,8 +118,8 @@ class ClusterMeanShift(Clustering):
 
 
 class ClusterSpectral(Clustering):
-    def __init__(self, data, params, ui):
-        super().__init__(data, params, ui)
+    def __init__(self, data, params, ui, driver):
+        super().__init__(data, params, ui, driver)
 
     def print_params(self):
         self.ui.textBrowser_infoPanel.append("\n##### SPECTRAL CLUSTERING PARAMETERS #####")
@@ -128,8 +136,8 @@ class ClusterSpectral(Clustering):
 
 
 class ClusterHierarchical(Clustering):
-    def __init__(self, data, params, ui):
-        super().__init__(data, params, ui)
+    def __init__(self, data, params, ui, driver):
+        super().__init__(data, params, ui, driver)
 
     def print_params(self):
         self.ui.textBrowser_infoPanel.append("\n##### HIERARCHICAL CLUSTERING PARAMETERS #####")
@@ -145,8 +153,8 @@ class ClusterHierarchical(Clustering):
         print(self.clustering)
 
 class ClusterDBSCAN(Clustering):
-    def __init__(self, data, params, ui):
-        super().__init__(data, params, ui)
+    def __init__(self, data, params, ui, driver):
+        super().__init__(data, params, ui, driver)
 
     def print_params(self):
         self.ui.textBrowser_infoPanel.append("\n##### DBSCAN CLUSTERING PARAMETERS #####")

@@ -74,6 +74,7 @@ class ClusterHolder:
 
     def calculate_objective_function(self):
         # print("\n##### FARTHEST HUB DISTANCES #####")
+        self.objective_function = list()
         hub_dist = dict()
         for cluster in self.clusters:
             cluster.find_center_point()

@@ -90,7 +90,7 @@ class HillClimbing(Heuristics):
 			# evaluate candidate point
 			candidate_eval = self.ch.calculate_objective_function()  # --> get objective function score from it
 			# check if we should keep the new point
-			if candidate_eval > solution_eval:  # --> if candidate_score is lower than initial score (we will use greater than)
+			if candidate_eval < solution_eval:  # --> if candidate_score is lower than initial score (we will use greater than)
 				# store the new point
 				self.ch_origin = deepcopy(self.ch)
 				solution_eval = candidate_eval
