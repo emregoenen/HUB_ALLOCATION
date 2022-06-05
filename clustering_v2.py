@@ -17,9 +17,11 @@ class Clustering:
         self.print_params()
         self.get_clustering()
         self.find_labels()
-        self.cluster = ClusterHolder(self.data, self.labels, self.ui)
+        self.cluster = ClusterHolder(self.data, self.labels)
         self.plot_clustering()
 
+    def get_cluster_holder(self):
+        return self.cluster
 
     def get_clustering(self):  # override this function
         ...
@@ -46,7 +48,8 @@ class Clustering:
         for cluster in self.cluster.clusters:
             plt.scatter(cluster.central_node[0], cluster.central_node[1], color='red')
 
-        plt.savefig("resources/temp/output.png")
+
+        plt.savefig("resources/temp/input.png")
         # plt.show()
 
 

@@ -4,25 +4,33 @@ import numpy as np
 class Cluster:
     def __init__(self, index, points, center_point=None):
         self.central_node = None
+        self.central_node_index = None
         self.distance_of_farthest_point = None
         self.cluster_index = index
         self.points = points
         if center_point is not None:
             self.center_point = center_point
         else:
-            self.center_point = self.find_center_point()
+            self.find_center_point()
 
         self.find_closest_point()
         self.find_distance_of_farthest_point()
 
+    def is_central_node(self, point):
+        if point == self.central_node:
+            return True
+        else:
+            return False
+
     def find_center_point(self):
         center_point = np.sum(self.points, axis=0) / len(self.points)
-        return center_point
+        self.center_point = center_point
 
     def find_closest_point(self): # Find central node (closest point to the center point)
         diff = (self.center_point - self.points)
         dist = np.sqrt(np.sum(diff ** 2, axis=-1))
-        self.central_node = self.points[np.argmin(dist)]
+        self.central_node_index = np.argmin(dist)
+        self.central_node = self.points[self.central_node_index]
 
     def find_distance_of_farthest_point(self): # Find distance of farthest point in the cluster to the cluster center node
         diff = (self.central_node - self.points)
@@ -30,12 +38,11 @@ class Cluster:
         self.distance_of_farthest_point = dist
 
     def __str__(self):
-        return f"Cluster {self.cluster_index} =====> {self.points}, Center point = {self.center_point}"
+        return f"Cluster {self.cluster_index} =====> {self.points}, Center node = {self.central_node}"
 
 
 class ClusterHolder:
-    def __init__(self, data, labels, ui, center_points=None):
-        self.ui = ui
+    def __init__(self, data, labels, center_points=None):
         self.clusters = list()
         self.data = data
         self.labels = labels
@@ -53,10 +60,9 @@ class ClusterHolder:
     def split_into_clusters(self):
         for i in range(self.n_clusters):
             self.clusters.append(Cluster(index=i, points=self.data[np.where(self.labels == i)], center_point=self.center_points[i]))
-        self.print_splitted_clusters()
+        # self.print_splitted_clusters()
 
     def print_splitted_clusters(self):
-        self.ui.textBrowser_infoPanel.append("\n##### SPLITTED CLUSTERS #####")
         print("\n##### SPLITTED CLUSTERS #####")
         for i, cluster in enumerate(self.clusters):
             strng = "" + "Cluster " + str(i) + " ======>"
@@ -64,40 +70,33 @@ class ClusterHolder:
             for point in cluster.points:
                 temp.append(self.get_data_index_by_point(point))
             strng += " " + str(temp)
-            self.ui.textBrowser_infoPanel.append(strng)
             print(strng)
 
-
     def calculate_objective_function(self):
-        self.ui.textBrowser_infoPanel.append("\n##### FARTHEST HUB DISTANCES #####")
-        print("\n##### FARTHEST HUB DISTANCES #####")
+        # print("\n##### FARTHEST HUB DISTANCES #####")
         hub_dist = dict()
         for cluster in self.clusters:
+            cluster.find_center_point()
+            cluster.find_distance_of_farthest_point()
             hub_dist.setdefault(self.get_data_index_by_point(cluster.central_node), cluster.distance_of_farthest_point)
-        self.ui.textBrowser_infoPanel.append(str(hub_dist))
-        print(hub_dist)
+        # print(hub_dist)
 
         pair_list = list(combinations(range(self.n_clusters),2))
-        self.ui.textBrowser_infoPanel.append("\n##### ALL POSSIBLE PAIRS #####")
-        print("\n##### ALL POSSIBLE PAIRS #####")
+        # print("\n##### ALL POSSIBLE PAIRS #####")
         possible_pairs = list()
         for pair in pair_list:
             possible_pairs.append([self.get_data_index_by_point(self.get_cluster_by_index(pair[0]).central_node), self.get_data_index_by_point(self.get_cluster_by_index(pair[1]).central_node)])
-        print(possible_pairs)
-        self.ui.textBrowser_infoPanel.append(str(possible_pairs))
+        # print(possible_pairs)
 
         for pair in pair_list:
             self.objective_function.append(self.get_cluster_by_index(pair[0]).distance_of_farthest_point + 0.75 * self.find_distance_between_clusters(pair[0], pair[1]) + self.get_cluster_by_index(pair[0]).distance_of_farthest_point)
         self.objective_function.append(2*max(self.get_cluster_distance_of_farthest_points()))
 
-        self.ui.textBrowser_infoPanel.append("\n##### PAIR OBJECTIVES #####")
-        self.ui.textBrowser_infoPanel.append(str(self.objective_function))
-        self.ui.textBrowser_infoPanel.append("\n##### OBJECTIVE FUNCTION #####")
-        self.ui.textBrowser_infoPanel.append(str(max(self.objective_function)))
-        print("\n##### PAIR OBJECTIVES #####")
-        print(self.objective_function)
-        print("\n##### OBJECTIVE FUNCTION #####")
-        print(max(self.objective_function))
+        # print("\n##### PAIR OBJECTIVES #####")
+        # print(self.objective_function)
+        # print("\n##### OBJECTIVE FUNCTION #####")
+        # print(max(self.objective_function))
+        return max(self.objective_function)
 
     def get_data_index_by_point(self, point):
         for indx, dt in enumerate(self.data):

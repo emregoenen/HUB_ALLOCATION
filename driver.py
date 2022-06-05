@@ -12,6 +12,7 @@ from clustering_v2 import ClusterKMeans, ClusterAffinity, ClusterDBSCAN, Cluster
 from params import KMeansParams, MeanShiftParams, SpectralParams, AffinityParams, DBSCANParams, HierarchicalParams
 from skimage import io
 from typing import Protocol
+from heuristics import HillClimbing
 
 
 class Driver:
@@ -22,6 +23,7 @@ class Driver:
         self.data = None
         self.data = None
         self.save_path = None
+        self.cluster_holder = None
         self.setup_icons()
         self.setup_signal_slots()
         self.create_widgets()
@@ -46,10 +48,14 @@ class Driver:
         self.ui.actionSpectral_Clustering.triggered.connect(self.open_spectral)
         self.ui.actionHierarchical_Clustering.triggered.connect(self.open_hierarchical)
         self.ui.actionDBSCAN.triggered.connect(self.open_dbscan)
-        self.ui.actionHill_Climbing.triggered.connect(self.say_hello)
+        self.ui.actionHill_Climbing.triggered.connect(self.hill_climbing)
         self.ui.actionSimulated_Anneling.triggered.connect(self.say_hello)
         self.ui.actionExport_As_Initial_Solution.triggered.connect(self.export_as_initial_solution)
         self.ui.actionExport_As_Final_Solution.triggered.connect(self.export_as_final_solution)
+
+    def hill_climbing(self):
+        HillClimbing(self.cluster_holder, n_iterations=1000)
+        self.plot_final_solution()
 
     def save_initial_solution(self):
         ...
@@ -109,6 +115,10 @@ class Driver:
         self.input_image = io.imread("resources/temp/input.png")
         self.ui.label_initialSolution.setPixmap(QtGui.QPixmap("resources/temp/input.png"))
 
+    def plot_final_solution(self):
+        self.output_image = io.imread("resources/temp/output.png")
+        self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
+
     def say_hello(self):
         print("HELLO THERE !")
 
@@ -120,10 +130,11 @@ class Driver:
         init = self.kmeans_ui.init.currentText()
         max_iter = int(self.kmeans_ui.max_iter.text())
         algorithm = self.kmeans_ui.algorithm.currentText()
-        ClusterKMeans(self.data, KMeansParams(n_clusters, init, max_iter, algorithm), self.ui)
+        operation = ClusterKMeans(self.data, KMeansParams(n_clusters, init, max_iter, algorithm), self.ui)
+        self.cluster_holder = operation.get_cluster_holder()
         self.kmeans_widget.hide()
-        self.output_image = io.imread("resources/temp/output.png")
-        self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
+        self.output_image = io.imread("resources/temp/input.png")
+        self.ui.label_initialSolution.setPixmap(QtGui.QPixmap("resources/temp/input.png"))
 
     def open_affinity(self):
         self.affinity_widget.show()
@@ -134,10 +145,11 @@ class Driver:
         convergence_iter = int(self.affinity_ui.convergence_iter.text())
         affinity = self.affinity_ui.affinity.currentText()
         random_state = int(self.affinity_ui.random_state.text())
-        ClusterAffinity(self.data, AffinityParams(damping, max_iter, convergence_iter, affinity, random_state), self.ui)
+        operation = ClusterAffinity(self.data, AffinityParams(damping, max_iter, convergence_iter, affinity, random_state), self.ui)
+        self.cluster_holder = operation.get_cluster_holder()
         self.affinity_widget.hide()
-        self.output_image = io.imread("resources/temp/output.png")
-        self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
+        self.output_image = io.imread("resources/temp/input.png")
+        self.ui.label_initialSolution.setPixmap(QtGui.QPixmap("resources/temp/input.png"))
 
     def open_dbscan(self):
         self.dbscan_widget.show()
@@ -147,10 +159,11 @@ class Driver:
         min_samples = int(self.dbscan_ui.min_samples.text())
         algorithm = self.dbscan_ui.algorithm.currentText()
         p = float(self.dbscan_ui.p.text())
-        ClusterDBSCAN(self.data, DBSCANParams(eps, min_samples, algorithm, p), self.ui)
+        operation = ClusterDBSCAN(self.data, DBSCANParams(eps, min_samples, algorithm, p), self.ui)
+        self.cluster_holder = operation.get_cluster_holder()
         self.dbscan_widget.hide()
-        self.output_image = io.imread("resources/temp/output.png")
-        self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
+        self.output_image = io.imread("resources/temp/input.png")
+        self.ui.label_initialSolution.setPixmap(QtGui.QPixmap("resources/temp/input.png"))
 
     def open_hierarchical(self):
         self.hierarchical_widget.show()
@@ -159,10 +172,11 @@ class Driver:
         n_clusters = int(self.hierarchical_ui.n_clusters.text())
         affinity = self.hierarchical_ui.affinity.currentText()
         linkage = self.hierarchical_ui.linkage.currentText()
-        ClusterHierarchical(self.data, HierarchicalParams(n_clusters, affinity, linkage), self.ui)
+        operation = ClusterHierarchical(self.data, HierarchicalParams(n_clusters, affinity, linkage), self.ui)
+        self.cluster_holder = operation.get_cluster_holder()
         self.hierarchical_widget.hide()
-        self.output_image = io.imread("resources/temp/output.png")
-        self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
+        self.output_image = io.imread("resources/temp/input.png")
+        self.ui.label_initialSolution.setPixmap(QtGui.QPixmap("resources/temp/input.png"))
 
     def open_meanshift(self):
         self.meanshift_widget.show()
@@ -175,10 +189,11 @@ class Driver:
             cluster_all = True
         else:
             cluster_all = False
-        ClusterMeanShift(self.data, MeanShiftParams(bandwidth, max_iter, cluster_all), self.ui)
+        operation = ClusterMeanShift(self.data, MeanShiftParams(bandwidth, max_iter, cluster_all), self.ui)
+        self.cluster_holder = operation.get_cluster_holder()
         self.meanshift_widget.hide()
-        self.output_image = io.imread("resources/temp/output.png")
-        self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
+        self.output_image = io.imread("resources/temp/input.png")
+        self.ui.label_initialSolution.setPixmap(QtGui.QPixmap("resources/temp/input.png"))
 
     def open_spectral(self):
         self.spectral_widget.show()
@@ -188,10 +203,11 @@ class Driver:
         n_components = int(self.spectral_ui.n_components.text())
         n_init = int(self.spectral_ui.n_init.text())
         assign_labels = self.spectral_ui.assign_labels.currentText()
-        ClusterSpectral(self.data, SpectralParams(n_clusters, n_components, n_init, assign_labels), self.ui)
+        operation = ClusterSpectral(self.data, SpectralParams(n_clusters, n_components, n_init, assign_labels), self.ui)
+        self.cluster_holder = operation.get_cluster_holder()
         self.spectral_widget.hide()
-        self.output_image = io.imread("resources/temp/output.png")
-        self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
+        self.output_image = io.imread("resources/temp/input.png")
+        self.ui.label_initialSolution.setPixmap(QtGui.QPixmap("resources/temp/input.png"))
 
     def create_widgets(self):
         self.kmeans_widget = QtWidgets.QWidget()
