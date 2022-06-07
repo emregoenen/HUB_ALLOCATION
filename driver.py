@@ -16,20 +16,35 @@ from heuristics import HillClimbing
 
 
 class Driver:
-    def __init__(self, ui):
+    def __init__(self, ui, MainWindow):
         self.ui = ui
+        self.MainWindow = MainWindow
         self.input_image = None
         self.output_image = None
         self.data = None
         self.data = None
         self.save_path = None
         self.cluster_holder = None
+        self.info = ""
         self.setup_icons()
         self.setup_signal_slots()
         self.create_widgets()
 
     def exit(self):
-        QtWidgets.QApplication.quit()
+        if self.ui.toolButton_exportAsFinalSolution.isEnabled():
+            reply = QtWidgets.QMessageBox.question(self.MainWindow, 'Unsaved Changes',
+                                                   "You have unsaved changes. Do you want to save them ?",
+                                                   QtWidgets.QMessageBox.Yes,
+                                                   QtWidgets.QMessageBox.No)
+            if reply == QtWidgets.QMessageBox.Yes:
+                self.export_as_final_solution()
+
+        reply = QtWidgets.QMessageBox.question(self.MainWindow, 'Quit',
+                                               "Are you sure to quit?", QtWidgets.QMessageBox.Yes,
+                                               QtWidgets.QMessageBox.No)
+
+        if reply == QtWidgets.QMessageBox.Yes:
+            QtWidgets.QApplication.quit()
 
     def setup_signal_slots(self):
         self.ui.actionOpen_Data.triggered.connect(self.open_data)
@@ -56,7 +71,10 @@ class Driver:
     def hill_climbing(self):
         HillClimbing(self.cluster_holder, n_iterations=1000)
         self.plot_final_solution()
-        self.enable_final_undo_redo_buttons()
+        self.check_buttons()
+        # self.check_save_export_as_buttons()
+        # self.check_undo_redo_buttons()
+        # self.check_clear_buttons()
 
     def save_initial_solution(self):
         ...
@@ -69,11 +87,13 @@ class Driver:
             self.ui.label_initialSolution.clear()
             self.input_image = None
         self.clear_final_solution()
+        self.check_buttons()
 
     def clear_final_solution(self):
         if self.output_image is not None:
             self.ui.label_finalSolution.clear()
             self.output_image = None
+        self.check_buttons()
 
     def export_as_initial_solution(self):
         if self.input_image is not None:
@@ -81,7 +101,6 @@ class Driver:
             if len(self.save_path) != 0:
                 output = self.input_image[:, :, :-1] # RGBA to RGB before saving (JPG DOES NOT SUPPORT RGBA)
                 io.imsave(self.save_path, output)
-                # self.check_save_buttons()
         else:
             QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning - Output is empty',
                                           'You must process input image before saving.')
@@ -92,39 +111,29 @@ class Driver:
             if len(self.save_path) != 0:
                 output = self.output_image[:, :, :-1] # RGBA to RGB before saving (JPG DOES NOT SUPPORT RGBA)
                 io.imsave(self.save_path, output)
-                # self.check_save_buttons()
         else:
             QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning - Output is empty',
                                           'You must process input image before saving.')
 
-
     def open_data(self):
         try:
+            self.print_info("Opening data...")
             fname, _ = QtWidgets.QFileDialog.getOpenFileName(filter="Text files (*.txt)")
             self.data = np.loadtxt(fname)
-            print(self.data)
+
+            self.print_info("### DATA ###")
+            self.print_info(self.data)
+
             self.plot_initial_solution()
-            self.enable_clustering_buttons()
-            self.enable_clear_initial_button()
+            self.check_buttons()
+            # self.check_clustering_buttons()
+            # self.check_clear_buttons()
         except FileNotFoundError:
             QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
                                           "Couldn't open file.")
 
-    def enable_clustering_buttons(self):
-        self.ui.actionK_Means.setEnabled(True)
-        self.ui.actionAffinity_Propagation.setEnabled(True)
-        self.ui.actionMean_shift.setEnabled(True)
-        self.ui.actionHierarchical_Clustering.setEnabled(True)
-        self.ui.actionSpectral_Clustering.setEnabled(True)
-        self.ui.actionDBSCAN.setEnabled(True)
-
-        self.ui.toolButton_kMeans.setEnabled(True)
-        self.ui.toolButton_affinityPropagation.setEnabled(True)
-        self.ui.toolButton_meanShift.setEnabled(True)
-        self.ui.toolButton_hierarchicalClustering.setEnabled(True)
-        self.ui.toolButton_spectralClustering.setEnabled(True)
-        self.ui.toolButton_dbscan.setEnabled(True)
-
+    def print_info(self, info):
+        self.ui.textBrowser_infoPanel.append(str(info))
 
     def plot_initial_solution(self):
         plt.clf()
@@ -146,56 +155,153 @@ class Driver:
         self.kmeans_widget.show()
 
     def k_means(self):
-        n_clusters = int(self.kmeans_ui.n_clusters.text())
+        try:
+            data = self.kmeans_ui.n_clusters.text()
+            n_clusters = int(data)
+        except ValueError:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
+                                          "Enter a valid input for n_clusters. --> integer")
+            return -1
+
         init = self.kmeans_ui.init.currentText()
-        max_iter = int(self.kmeans_ui.max_iter.text())
+
+        try:
+            data = self.kmeans_ui.max_iter.text()
+            max_iter = int(data)
+        except ValueError:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
+                                          "Enter a valid input for max_iter. --> integer")
+            return -1
+
         algorithm = self.kmeans_ui.algorithm.currentText()
         operation = ClusterKMeans(self.data, KMeansParams(n_clusters, init, max_iter, algorithm), self.ui, self)
         self.cluster_holder = operation.get_cluster_holder()
         self.kmeans_widget.hide()
+        self.print_info(self.cluster_holder.info)
 
     def open_affinity(self):
         self.affinity_widget.show()
 
     def affinity(self):
-        damping = float(self.affinity_ui.damping.text())
-        max_iter = int(self.affinity_ui.max_iter.text())
-        convergence_iter = int(self.affinity_ui.convergence_iter.text())
+        try:
+            data = self.affinity_ui.damping.text()
+            damping = float(data)
+        except ValueError:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
+                                          "Enter a valid input for damping. --> float")
+            return -1
+
+        try:
+            data = self.affinity_ui.max_iter.text()
+            max_iter = int(data)
+        except ValueError:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
+                                          "Enter a valid input for max_iter. --> integer")
+            return -1
+
+        try:
+            data = self.affinity_ui.convergence_iter.text()
+            convergence_iter = int(data)
+        except ValueError:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
+                                          "Enter a valid input for convergence_iter. --> integer")
+            return -1
+
         affinity = self.affinity_ui.affinity.currentText()
-        random_state = int(self.affinity_ui.random_state.text())
+        try:
+            data = self.affinity_ui.random_state.text()
+            if data == 'None':
+                random_state = None
+            else:
+                random_state = int(data)
+        except ValueError:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
+                                          "Enter a valid input for random_state. --> integer or None")
+            return -1
+
         operation = ClusterAffinity(self.data, AffinityParams(damping, max_iter, convergence_iter, affinity, random_state), self.ui, self)
         self.cluster_holder = operation.get_cluster_holder()
         self.affinity_widget.hide()
+        self.print_info(self.cluster_holder.info)
 
     def open_dbscan(self):
         self.dbscan_widget.show()
 
     def dbscan(self):
-        eps = float(self.dbscan_ui.eps.text())
-        min_samples = int(self.dbscan_ui.min_samples.text())
+        try:
+            data = self.dbscan_ui.eps.text()
+            eps = float(data)
+        except ValueError:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
+                                          "Enter a valid input for eps. --> float")
+            return -1
+
+        try:
+            data = self.dbscan_ui.min_samples.text()
+            min_samples = int(data)
+        except ValueError:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
+                                          "Enter a valid input for min_samples. --> integer")
+            return -1
+
         algorithm = self.dbscan_ui.algorithm.currentText()
-        p = float(self.dbscan_ui.p.text())
-        operation = ClusterDBSCAN(self.data, DBSCANParams(eps, min_samples, algorithm, p), self.ui)
+
+        try:
+            data = self.dbscan_ui.p.text()
+            p = float(data)
+        except ValueError:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
+                                          "Enter a valid input for p. --> float")
+            return -1
+
+
+        operation = ClusterDBSCAN(self.data, DBSCANParams(eps, min_samples, algorithm, p), self.ui, self)
         self.cluster_holder = operation.get_cluster_holder()
         self.dbscan_widget.hide()
+        self.print_info(self.cluster_holder.info)
 
     def open_hierarchical(self):
         self.hierarchical_widget.show()
 
     def hierarchical(self):
-        n_clusters = int(self.hierarchical_ui.n_clusters.text())
+        try:
+            data = self.hierarchical_ui.n_clusters.text()
+            n_clusters = int(data)
+        except ValueError:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
+                                          "Enter a valid input for n_clusters. --> integer")
+            return -1
+
         affinity = self.hierarchical_ui.affinity.currentText()
         linkage = self.hierarchical_ui.linkage.currentText()
         operation = ClusterHierarchical(self.data, HierarchicalParams(n_clusters, affinity, linkage), self.ui, self)
         self.cluster_holder = operation.get_cluster_holder()
         self.hierarchical_widget.hide()
+        self.print_info(self.cluster_holder.info)
 
     def open_meanshift(self):
         self.meanshift_widget.show()
 
     def meanshift(self):
-        bandwidth = float(self.meanshift_ui.bandwidth.text())
-        max_iter = int(self.meanshift_ui.bandwidth.text())
+        try:
+            data = self.meanshift_ui.bandwidth.text()
+            if data == 'None':
+                bandwidth = None
+            else:
+                bandwidth = float(data)
+        except ValueError:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
+                                          "Enter a valid input for bandwidth. --> float or None")
+            return -1
+
+        try:
+            data = self.meanshift_ui.max_iter.text()
+            max_iter = int(data)
+        except ValueError:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
+                                          "Enter a valid input for max_iter. --> integer")
+            return -1
+
         cluster_all = self.meanshift_ui.cluster_all.currentText()
         if cluster_all == 'True':
             cluster_all = True
@@ -204,50 +310,162 @@ class Driver:
         operation = ClusterMeanShift(self.data, MeanShiftParams(bandwidth, max_iter, cluster_all), self.ui, self)
         self.cluster_holder = operation.get_cluster_holder()
         self.meanshift_widget.hide()
+        self.print_info(self.cluster_holder.info)
 
     def open_spectral(self):
         self.spectral_widget.show()
 
     def spectral(self):
-        n_clusters = int(self.spectral_ui.n_clusters.text())
-        n_components = int(self.spectral_ui.n_components.text())
-        n_init = int(self.spectral_ui.n_init.text())
+        try:
+            data = self.spectral_ui.n_clusters.text()
+            n_clusters = int(data)
+        except ValueError:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
+                                          "Enter a valid input for n_clusters. --> integer")
+            return -1
+
+        try:
+            data = self.spectral_ui.n_components.text()
+            if data == 'None':
+                n_components = None
+            else:
+                n_components = int(data)
+        except ValueError:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
+                                          "Enter a valid input for n_components. --> integer")
+            return -1
+
+        try:
+            data = self.spectral_ui.n_init.text()
+            n_init = int(data)
+        except ValueError:
+            QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
+                                          "Enter a valid input for n_init. --> integer")
+            return -1
+
         assign_labels = self.spectral_ui.assign_labels.currentText()
         operation = ClusterSpectral(self.data, SpectralParams(n_clusters, n_components, n_init, assign_labels), self.ui, self)
         self.cluster_holder = operation.get_cluster_holder()
         self.spectral_widget.hide()
+        self.print_info(self.cluster_holder.info)
 
-    def enable_clear_initial_button(self):
-        self.ui.toolButton_clearInitialSolution.setEnabled(True)
-        self.ui.actionClear_Initial_Solution.setEnabled(True)
+    def check_buttons(self):
+        self.check_undo_redo_buttons()
+        self.check_clear_buttons()
+        self.check_clustering_buttons()
+        self.check_save_export_as_buttons()
+        self.check_heuristics_buttons()
 
-    def enable_clear_final_button(self):
-        self.ui.toolButton_clearFinalSolution.setEnabled(True)
-        self.ui.actionClear_Final_Solution.setEnabled(True)
+    def check_clear_buttons(self):
+        if self.input_image is not None:
+            self.ui.toolButton_clearInitialSolution.setEnabled(True)
+            self.ui.actionClear_Initial_Solution.setEnabled(True)
+        else:
+            self.ui.toolButton_clearInitialSolution.setEnabled(False)
+            self.ui.actionClear_Initial_Solution.setEnabled(False)
 
-    def enable_save_export_initial_buttons(self):
-        self.ui.toolButton_saveInitialSolution.setEnabled(True)
-        self.ui.toolButton_exportAsInitialSolution.setEnabled(True)
-        self.ui.actionSave_Initial_Solution.setEnabled(True)
-        self.ui.actionExport_As_Initial_Solution.setEnabled(True)
+        if self.output_image is not None:
+            self.ui.toolButton_clearFinalSolution.setEnabled(True)
+            self.ui.actionClear_Final_Solution.setEnabled(True)
+        else:
+            self.ui.toolButton_clearFinalSolution.setEnabled(False)
+            self.ui.actionClear_Final_Solution.setEnabled(False)
 
-    def enable_heuristics_buttons(self):
-        self.ui.toolButton_hillClimbing.setEnabled(True)
-        self.ui.toolButton_simulatedAnneling.setEnabled(True)
-        self.ui.actionHill_Climbing.setEnabled(True)
-        self.ui.actionSimulated_Anneling.setEnabled(True)
+    def check_save_export_as_buttons(self):
+        if self.input_image is not None:
+            self.ui.toolButton_saveInitialSolution.setEnabled(True)
+            self.ui.toolButton_exportAsInitialSolution.setEnabled(True)
+            self.ui.actionSave_Initial_Solution.setEnabled(True)
+            self.ui.actionExport_As_Initial_Solution.setEnabled(True)
+        else:
+            self.ui.toolButton_saveInitialSolution.setEnabled(False)
+            self.ui.toolButton_exportAsInitialSolution.setEnabled(False)
+            self.ui.actionSave_Initial_Solution.setEnabled(False)
+            self.ui.actionExport_As_Initial_Solution.setEnabled(False)
 
-    def enable_initial_undo_redo_buttons(self):
-        self.ui.toolButton_undoInitialSolution.setEnabled(True)
-        self.ui.toolButton_redoInitialSolution.setEnabled(True)
-        self.ui.actionUndo_Initial_Solution.setEnabled(True)
-        self.ui.actionRedo_Initial_Solution.setEnabled(True)
+        if self.output_image is not None:
+            self.ui.toolButton_saveFinalSolution.setEnabled(True)
+            self.ui.toolButton_exportAsFinalSolution.setEnabled(True)
+            self.ui.actionSave_Final_Solution.setEnabled(True)
+            self.ui.actionExport_As_Final_Solution.setEnabled(True)
+        else:
+            self.ui.toolButton_saveFinalSolution.setEnabled(False)
+            self.ui.toolButton_exportAsFinalSolution.setEnabled(False)
+            self.ui.actionSave_Final_Solution.setEnabled(False)
+            self.ui.actionExport_As_Final_Solution.setEnabled(False)
 
-    def enable_final_undo_redo_buttons(self):
-        self.ui.toolButton_undoFinalSolution.setEnabled(True)
-        self.ui.toolButton_redoFinalSolution.setEnabled(True)
-        self.ui.actionUndo_Final_Solution.setEnabled(True)
-        self.ui.actionRedo_Final_Solution.setEnabled(True)
+    def check_heuristics_buttons(self):
+        if self.input_image is not None:
+            self.ui.toolButton_hillClimbing.setEnabled(True)
+            self.ui.toolButton_simulatedAnneling.setEnabled(True)
+            self.ui.actionHill_Climbing.setEnabled(True)
+            self.ui.actionSimulated_Anneling.setEnabled(True)
+        else:
+            self.ui.toolButton_hillClimbing.setEnabled(False)
+            self.ui.toolButton_simulatedAnneling.setEnabled(False)
+            self.ui.actionHill_Climbing.setEnabled(False)
+            self.ui.actionSimulated_Anneling.setEnabled(False)
+
+    def check_clustering_buttons(self):
+        if self.input_image is not None:
+            self.ui.actionK_Means.setEnabled(True)
+            self.ui.actionAffinity_Propagation.setEnabled(True)
+            self.ui.actionMean_shift.setEnabled(True)
+            self.ui.actionHierarchical_Clustering.setEnabled(True)
+            self.ui.actionSpectral_Clustering.setEnabled(True)
+            self.ui.actionDBSCAN.setEnabled(True)
+
+            self.ui.toolButton_kMeans.setEnabled(True)
+            self.ui.toolButton_affinityPropagation.setEnabled(True)
+            self.ui.toolButton_meanShift.setEnabled(True)
+            self.ui.toolButton_hierarchicalClustering.setEnabled(True)
+            self.ui.toolButton_spectralClustering.setEnabled(True)
+            self.ui.toolButton_dbscan.setEnabled(True)
+        else:
+            self.ui.actionK_Means.setEnabled(False)
+            self.ui.actionAffinity_Propagation.setEnabled(False)
+            self.ui.actionMean_shift.setEnabled(False)
+            self.ui.actionHierarchical_Clustering.setEnabled(False)
+            self.ui.actionSpectral_Clustering.setEnabled(False)
+            self.ui.actionDBSCAN.setEnabled(False)
+
+            self.ui.toolButton_kMeans.setEnabled(False)
+            self.ui.toolButton_affinityPropagation.setEnabled(False)
+            self.ui.toolButton_meanShift.setEnabled(False)
+            self.ui.toolButton_hierarchicalClustering.setEnabled(False)
+            self.ui.toolButton_spectralClustering.setEnabled(False)
+            self.ui.toolButton_dbscan.setEnabled(False)
+
+
+    def check_undo_redo_buttons(self):
+        print("HELLO")
+        # if len(self.initial_undo_stack) > 1:
+        #     self.ui.toolButton_undoInitialSolution.setEnabled(True)
+        #     self.ui.actionUndo_Initial_Solution.setEnabled(True)
+        # else:
+        #     self.ui.toolButton_undoInitialSolution.setEnabled(False)
+        #     self.ui.actionUndo_Initial_Solution.setEnabled(False)
+        #
+        # if len(self.initial_redo_stack) > 0:
+        #     self.ui.toolButton_redoInitialSolution.setEnabled(True)
+        #     self.ui.actionRedo_Initial_Solution.setEnabled(True)
+        # else:
+        #     self.ui.toolButton_redoInitialSolution.setEnabled(False)
+        #     self.ui.actionRedo_Initial_Solution.setEnabled(False)
+        #
+        # if len(self.final_undo_stack) > 1:
+        #     self.ui.toolButton_undoFinalSolution.setEnabled(True)
+        #     self.ui.actionUndo_Final_Solution.setEnabled(True)
+        # else:
+        #     self.ui.toolButton_undoFinalSolution.setEnabled(False)
+        #     self.ui.actionUndo_Final_Solution.setEnabled(False)
+        #
+        # if len(self.final_redo_stack) > 0:
+        #     self.ui.toolButton_redoFinalSolution.setEnabled(True)
+        #     self.ui.actionRedo_Final_Solution.setEnabled(True)
+        # else:
+        #     self.ui.toolButton_redoFinalSolution.setEnabled(False)
+        #     self.ui.actionRedo_Final_Solution.setEnabled(False)
 
     def update_input_image(self):
         self.input_image = io.imread("resources/temp/input.png")

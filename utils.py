@@ -43,6 +43,7 @@ class Cluster:
 
 class ClusterHolder:
     def __init__(self, data, labels, center_points=None):
+        self.info = ""
         self.clusters = list()
         self.data = data
         self.labels = labels
@@ -56,47 +57,56 @@ class ClusterHolder:
 
         self.objective_function = list()
         self.calculate_objective_function()
+        print(self.info)
 
     def split_into_clusters(self):
         for i in range(self.n_clusters):
             self.clusters.append(Cluster(index=i, points=self.data[np.where(self.labels == i)], center_point=self.center_points[i]))
-        # self.print_splitted_clusters()
+        self.print_splitted_clusters()
+        self.print_cluster_center_nodes()
 
     def print_splitted_clusters(self):
-        print("\n##### SPLITTED CLUSTERS #####")
+        self.info += f"\nThere are {len(self.clusters)} clusters\n"
         for i, cluster in enumerate(self.clusters):
             strng = "" + "Cluster " + str(i) + " ======>"
             temp = []
             for point in cluster.points:
                 temp.append(self.get_data_index_by_point(point))
             strng += " " + str(temp)
-            print(strng)
+            self.info += strng + '\n'
+
+    def print_cluster_center_nodes(self):
+        self.info += "Cluster center nodes ======> "
+        temp = []
+        for cluster in self.clusters:
+            temp.append(self.get_data_index_by_point(cluster.central_node))
+        self.info += str(temp) + '\n'
 
     def calculate_objective_function(self):
-        # print("\n##### FARTHEST HUB DISTANCES #####")
+        self.info += "\n------Farthest hub distances------\n"
         self.objective_function = list()
         hub_dist = dict()
         for cluster in self.clusters:
             cluster.find_center_point()
             cluster.find_distance_of_farthest_point()
             hub_dist.setdefault(self.get_data_index_by_point(cluster.central_node), cluster.distance_of_farthest_point)
-        # print(hub_dist)
+        self.info += str(hub_dist) + '\n'
 
         pair_list = list(combinations(range(self.n_clusters),2))
-        # print("\n##### ALL POSSIBLE PAIRS #####")
+        self.info += "\nAll possible pairs : \n"
         possible_pairs = list()
         for pair in pair_list:
             possible_pairs.append([self.get_data_index_by_point(self.get_cluster_by_index(pair[0]).central_node), self.get_data_index_by_point(self.get_cluster_by_index(pair[1]).central_node)])
-        # print(possible_pairs)
+        self.info += str(pair_list) + '\n'
 
         for pair in pair_list:
             self.objective_function.append(self.get_cluster_by_index(pair[0]).distance_of_farthest_point + 0.75 * self.find_distance_between_clusters(pair[0], pair[1]) + self.get_cluster_by_index(pair[0]).distance_of_farthest_point)
         self.objective_function.append(2*max(self.get_cluster_distance_of_farthest_points()))
 
-        # print("\n##### PAIR OBJECTIVES #####")
-        # print(self.objective_function)
-        # print("\n##### OBJECTIVE FUNCTION #####")
-        # print(max(self.objective_function))
+        self.info += "\n------Pair objectives------\n"
+        self.info += str(self.objective_function)
+        self.info += f"\nObjective function ======> {max(self.objective_function)}\n"
+
         return max(self.objective_function)
 
     def get_data_index_by_point(self, point):
