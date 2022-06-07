@@ -57,7 +57,12 @@ class ClusterHolder:
 
         self.objective_function = list()
         self.calculate_objective_function()
-        print(self.info)
+
+    def rewrite_info(self):
+        self.info = ""
+        self.print_splitted_clusters()
+        self.print_cluster_center_nodes()
+        self.calculate_objective_function()
 
     def split_into_clusters(self):
         for i in range(self.n_clusters):
