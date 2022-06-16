@@ -1,0 +1,207 @@
+\hypertarget{classheuristics_1_1_heuristics}{}\doxysection{heuristics.\+Heuristics Class Reference}
+\label{classheuristics_1_1_heuristics}\index{heuristics.Heuristics@{heuristics.Heuristics}}
+
+
+Base class for \mbox{\hyperlink{classheuristics_1_1_heuristics}{Heuristics}}.  
+
+
+Inheritance diagram for heuristics.\+Heuristics\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classheuristics_1_1_heuristics}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classheuristics_1_1_heuristics_a329bd89d09ec481afa04535e4cb8110f}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classutils_1_1_cluster_holder}{Cluster\+Holder}} \mbox{\hyperlink{classheuristics_1_1_heuristics_a3b75dcac5eb1a6645b124646ba5e21f7}{ch}}, int \mbox{\hyperlink{classheuristics_1_1_heuristics_a9a1009a9fdb6898eafd86e5248d3b29b}{n\+\_\+iterations}})
+\item 
+def \mbox{\hyperlink{classheuristics_1_1_heuristics_a61c7bb3ea50b700596341ca10f0c8dfa}{get\+\_\+final\+\_\+solution}} (self)
+\begin{DoxyCompactList}\small\item\em When operation is done, by calling this function we get new clusters. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classheuristics_1_1_heuristics_a97a5a16ad08a2405af0cbdb9845af71d}{evaluate}} (self)
+\begin{DoxyCompactList}\small\item\em Override this function. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classheuristics_1_1_heuristics_af267b9184bce627fba4b5ef536b65372}{relocate\+\_\+hub}} (self)
+\begin{DoxyCompactList}\small\item\em Change the location of the hub in a randomly chosen cluster with a randomly chosen node in the same cluster. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classheuristics_1_1_heuristics_a67691cc060324a2d611e91bfb39afff0}{reallocate\+\_\+node}} (self)
+\begin{DoxyCompactList}\small\item\em From a randomly chosen cluster, change the allocation of non-\/hub node to a different randomly chosen cluster. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classheuristics_1_1_heuristics_a60d80bfa772a5e17490a1bb21ee735fa}{swap\+\_\+nodes}} (self)
+\begin{DoxyCompactList}\small\item\em Swap the allocations of two randomly chosen non-\/hub nodes from different clusters. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classheuristics_1_1_heuristics_ace28aa7cce495d23a6786dab0f269c94}{rand\+\_\+cluster}} (self)
+\begin{DoxyCompactList}\small\item\em Pick a random cluster and return it. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classheuristics_1_1_heuristics_a82ea17f2386245a144bdc26006fac593}{rand\+\_\+node}} (self, cluster)
+\begin{DoxyCompactList}\small\item\em Pick a random node in given cluster and return it and its index. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classheuristics_1_1_heuristics_a0fbd9b1d9c919e713d1969d279ccab43}{plot\+\_\+clustering}} (self)
+\begin{DoxyCompactList}\small\item\em Plot final solution that improved from initial solution. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classheuristics_1_1_heuristics_a11fc173646d7451237c2eb5f26ba1320}{info}}
+\item 
+\mbox{\hyperlink{classheuristics_1_1_heuristics_a4f13474bf766274cba113476e38f3224}{colorspace}}
+\item 
+\mbox{\hyperlink{classheuristics_1_1_heuristics_abe5414070cf5bc3a605f0f3bfcb838dd}{ch\+\_\+origin}}
+\item 
+\mbox{\hyperlink{classheuristics_1_1_heuristics_a3b75dcac5eb1a6645b124646ba5e21f7}{ch}}
+\item 
+\mbox{\hyperlink{classheuristics_1_1_heuristics_aab1aa9e6ac70a2be8d92ce129a1d659b}{n\+\_\+clusters}}
+\item 
+\mbox{\hyperlink{classheuristics_1_1_heuristics_a9a1009a9fdb6898eafd86e5248d3b29b}{n\+\_\+iterations}}
+\item 
+\mbox{\hyperlink{classheuristics_1_1_heuristics_a7bbbe757a6f0cf02bbb61360c0b6a9a8}{initial\+\_\+score}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base class for \mbox{\hyperlink{classheuristics_1_1_heuristics}{Heuristics}}. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classheuristics_1_1_heuristics_a329bd89d09ec481afa04535e4cb8110f}\label{classheuristics_1_1_heuristics_a329bd89d09ec481afa04535e4cb8110f}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def heuristics.\+Heuristics.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{\mbox{\hyperlink{classutils_1_1_cluster_holder}{Cluster\+Holder}}}]{ch,  }\item[{int}]{n\+\_\+iterations }\end{DoxyParamCaption})}
+
+
+
+Reimplemented in \mbox{\hyperlink{classheuristics_1_1_hill_climbing_a2e3cb4cc606acce59dba3265b3837d7c}{heuristics.\+Hill\+Climbing}}, and \mbox{\hyperlink{classheuristics_1_1_simulated_annealing_a001e59af60b7a3a3d5b2c9c2b107eec9}{heuristics.\+Simulated\+Annealing}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classheuristics_1_1_heuristics_a97a5a16ad08a2405af0cbdb9845af71d}\label{classheuristics_1_1_heuristics_a97a5a16ad08a2405af0cbdb9845af71d}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{evaluate()}{evaluate()}}
+{\footnotesize\ttfamily def heuristics.\+Heuristics.\+evaluate (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Override this function. 
+
+
+
+Reimplemented in \mbox{\hyperlink{classheuristics_1_1_hill_climbing_a001fe8891fd6c62f36d616cbb57bfb6a}{heuristics.\+Hill\+Climbing}}, and \mbox{\hyperlink{classheuristics_1_1_simulated_annealing_ad56b2ea59f921b3ab767296617d3a981}{heuristics.\+Simulated\+Annealing}}.
+
+\mbox{\Hypertarget{classheuristics_1_1_heuristics_a61c7bb3ea50b700596341ca10f0c8dfa}\label{classheuristics_1_1_heuristics_a61c7bb3ea50b700596341ca10f0c8dfa}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!get\_final\_solution@{get\_final\_solution}}
+\index{get\_final\_solution@{get\_final\_solution}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{get\_final\_solution()}{get\_final\_solution()}}
+{\footnotesize\ttfamily def heuristics.\+Heuristics.\+get\+\_\+final\+\_\+solution (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+When operation is done, by calling this function we get new clusters. 
+
+\begin{DoxyReturn}{Returns}
+Manipulated (optimized) clusters. -\/-\/\texorpdfstring{$>$}{>} Cluster\+Holder object. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classheuristics_1_1_heuristics_a0fbd9b1d9c919e713d1969d279ccab43}\label{classheuristics_1_1_heuristics_a0fbd9b1d9c919e713d1969d279ccab43}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!plot\_clustering@{plot\_clustering}}
+\index{plot\_clustering@{plot\_clustering}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{plot\_clustering()}{plot\_clustering()}}
+{\footnotesize\ttfamily def heuristics.\+Heuristics.\+plot\+\_\+clustering (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Plot final solution that improved from initial solution. 
+
+\mbox{\Hypertarget{classheuristics_1_1_heuristics_ace28aa7cce495d23a6786dab0f269c94}\label{classheuristics_1_1_heuristics_ace28aa7cce495d23a6786dab0f269c94}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!rand\_cluster@{rand\_cluster}}
+\index{rand\_cluster@{rand\_cluster}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{rand\_cluster()}{rand\_cluster()}}
+{\footnotesize\ttfamily def heuristics.\+Heuristics.\+rand\+\_\+cluster (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Pick a random cluster and return it. 
+
+\mbox{\Hypertarget{classheuristics_1_1_heuristics_a82ea17f2386245a144bdc26006fac593}\label{classheuristics_1_1_heuristics_a82ea17f2386245a144bdc26006fac593}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!rand\_node@{rand\_node}}
+\index{rand\_node@{rand\_node}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{rand\_node()}{rand\_node()}}
+{\footnotesize\ttfamily def heuristics.\+Heuristics.\+rand\+\_\+node (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{cluster }\end{DoxyParamCaption})}
+
+
+
+Pick a random node in given cluster and return it and its index. 
+
+\mbox{\Hypertarget{classheuristics_1_1_heuristics_a67691cc060324a2d611e91bfb39afff0}\label{classheuristics_1_1_heuristics_a67691cc060324a2d611e91bfb39afff0}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!reallocate\_node@{reallocate\_node}}
+\index{reallocate\_node@{reallocate\_node}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{reallocate\_node()}{reallocate\_node()}}
+{\footnotesize\ttfamily def heuristics.\+Heuristics.\+reallocate\+\_\+node (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+From a randomly chosen cluster, change the allocation of non-\/hub node to a different randomly chosen cluster. 
+
+If the randomly chosen cluster consists of only one node, we do not allow this operation. \mbox{\Hypertarget{classheuristics_1_1_heuristics_af267b9184bce627fba4b5ef536b65372}\label{classheuristics_1_1_heuristics_af267b9184bce627fba4b5ef536b65372}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!relocate\_hub@{relocate\_hub}}
+\index{relocate\_hub@{relocate\_hub}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{relocate\_hub()}{relocate\_hub()}}
+{\footnotesize\ttfamily def heuristics.\+Heuristics.\+relocate\+\_\+hub (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Change the location of the hub in a randomly chosen cluster with a randomly chosen node in the same cluster. 
+
+\mbox{\Hypertarget{classheuristics_1_1_heuristics_a60d80bfa772a5e17490a1bb21ee735fa}\label{classheuristics_1_1_heuristics_a60d80bfa772a5e17490a1bb21ee735fa}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!swap\_nodes@{swap\_nodes}}
+\index{swap\_nodes@{swap\_nodes}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{swap\_nodes()}{swap\_nodes()}}
+{\footnotesize\ttfamily def heuristics.\+Heuristics.\+swap\+\_\+nodes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Swap the allocations of two randomly chosen non-\/hub nodes from different clusters. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classheuristics_1_1_heuristics_a3b75dcac5eb1a6645b124646ba5e21f7}\label{classheuristics_1_1_heuristics_a3b75dcac5eb1a6645b124646ba5e21f7}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!ch@{ch}}
+\index{ch@{ch}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{ch}{ch}}
+{\footnotesize\ttfamily heuristics.\+Heuristics.\+ch}
+
+\mbox{\Hypertarget{classheuristics_1_1_heuristics_abe5414070cf5bc3a605f0f3bfcb838dd}\label{classheuristics_1_1_heuristics_abe5414070cf5bc3a605f0f3bfcb838dd}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!ch\_origin@{ch\_origin}}
+\index{ch\_origin@{ch\_origin}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{ch\_origin}{ch\_origin}}
+{\footnotesize\ttfamily heuristics.\+Heuristics.\+ch\+\_\+origin}
+
+\mbox{\Hypertarget{classheuristics_1_1_heuristics_a4f13474bf766274cba113476e38f3224}\label{classheuristics_1_1_heuristics_a4f13474bf766274cba113476e38f3224}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!colorspace@{colorspace}}
+\index{colorspace@{colorspace}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{colorspace}{colorspace}}
+{\footnotesize\ttfamily heuristics.\+Heuristics.\+colorspace}
+
+\mbox{\Hypertarget{classheuristics_1_1_heuristics_a11fc173646d7451237c2eb5f26ba1320}\label{classheuristics_1_1_heuristics_a11fc173646d7451237c2eb5f26ba1320}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!info@{info}}
+\index{info@{info}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{info}{info}}
+{\footnotesize\ttfamily heuristics.\+Heuristics.\+info}
+
+\mbox{\Hypertarget{classheuristics_1_1_heuristics_a7bbbe757a6f0cf02bbb61360c0b6a9a8}\label{classheuristics_1_1_heuristics_a7bbbe757a6f0cf02bbb61360c0b6a9a8}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!initial\_score@{initial\_score}}
+\index{initial\_score@{initial\_score}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{initial\_score}{initial\_score}}
+{\footnotesize\ttfamily heuristics.\+Heuristics.\+initial\+\_\+score}
+
+\mbox{\Hypertarget{classheuristics_1_1_heuristics_aab1aa9e6ac70a2be8d92ce129a1d659b}\label{classheuristics_1_1_heuristics_aab1aa9e6ac70a2be8d92ce129a1d659b}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!n\_clusters@{n\_clusters}}
+\index{n\_clusters@{n\_clusters}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{n\_clusters}{n\_clusters}}
+{\footnotesize\ttfamily heuristics.\+Heuristics.\+n\+\_\+clusters}
+
+\mbox{\Hypertarget{classheuristics_1_1_heuristics_a9a1009a9fdb6898eafd86e5248d3b29b}\label{classheuristics_1_1_heuristics_a9a1009a9fdb6898eafd86e5248d3b29b}} 
+\index{heuristics.Heuristics@{heuristics.Heuristics}!n\_iterations@{n\_iterations}}
+\index{n\_iterations@{n\_iterations}!heuristics.Heuristics@{heuristics.Heuristics}}
+\doxysubsubsection{\texorpdfstring{n\_iterations}{n\_iterations}}
+{\footnotesize\ttfamily heuristics.\+Heuristics.\+n\+\_\+iterations}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{heuristics_8py}{heuristics.\+py}}\end{DoxyCompactItemize}

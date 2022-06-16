@@ -13,8 +13,188 @@ from params import KMeansParams, MeanShiftParams, SpectralParams, AffinityParams
 from skimage import io
 from typing import Protocol
 from heuristics import HillClimbing
+from copy import deepcopy
+from dataclasses import dataclass, field
+
+## dataclass for holding initial solution states of the program
+#  When undoable event occurs, the programs current initial solution state is saved.
+#  When undo() is invoked, program is set to previous state
+#  When redo() is invoked, program is set to next state
+@dataclass(order=True)
+class InitialState:
+    input_image: np.array = None
+    cluster_holder = None
+    initial_info: str = ""
+    data = None
+
+## dataclass for holding final solution states of the program
+#  When undoable event occurs, the programs current final solution state is saved.
+#  When undo() is invoked, program is set to previous state
+#  When redo() is invoked, program is set to next state
+@dataclass(order=True)
+class FinalState:
+    output_image: np.array = None
+    cluster_holder_final = None
+    final_info: str = ""
 
 
+## Base class for Undo and Redo operations
+class UndoRedo:
+    def __init__(self, driver):
+        self.driver = driver
+        self.undo_stack = list()
+        self.redo_stack = list()
+        self.first_start()
+
+    def undoable_event_happened(self): # override this function
+        ...
+
+    def first_start(self):
+        ...
+
+## Holds states of initial solution
+class UndoRedoInitial(UndoRedo):
+    def __init__(self, driver):
+        super().__init__(driver)
+
+
+    ## Pop the previous state from undo stack and push it to the redo stack
+    #  Then, set the program's state to top of undo stack
+    def undo(self):
+        x = None
+        try:
+            if len(self.undo_stack) > 1:
+                x = self.undo_stack.pop()
+            else:
+                print('\a')
+        except IndexError:
+            print('\a')
+        finally:
+            if x:
+                self.redo_stack.append(x)
+                y = self.undo_stack[-1]
+                self.driver.input_image = y.input_image
+                self.driver.cluster_holder = y.cluster_holder
+                self.driver.initial_info = y.initial_info
+                self.driver.data = y.data
+                self.driver.update_io_labels()
+                self.driver.update_info_panels()
+                self.driver.check_buttons()
+
+    ## Pop from the top of redo stack, then push it to the undo stack
+    #  Set the current state of the program to popped state
+    def redo(self):
+        x = None
+        try:
+            x = self.redo_stack.pop()
+        except IndexError:
+            print('\a')
+        finally:
+            if x:
+                self.undo_stack.append(x)
+                self.driver.input_image = x.input_image
+                self.driver.cluster_holder = x.cluster_holder
+                self.driver.initial_info = x.initial_info
+                self.driver.data = x.data
+                self.driver.update_io_labels()
+                self.driver.update_info_panels()
+                self.driver.check_buttons()
+
+    ## At initilization of the class push initial state with default parameters to undo stack
+    #  And clear redo stack
+    def first_start(self):
+        state = InitialState()
+        state.input_image = self.driver.input_image
+        state.cluster_holder = self.driver.cluster_holder
+        state.initial_info = self.driver.initial_info
+        state.data = self.driver.data
+        self.undo_stack.append(state)
+        self.redo_stack.clear()
+
+    ## Undoable event happened
+    #  Save the current state of the program and push it to undo stack
+    #  Clear the redo stack
+    def undoable_event_happened(self):
+        state = InitialState()
+        state.input_image = self.driver.input_image
+        state.cluster_holder = self.driver.cluster_holder
+        state.initial_info = self.driver.initial_info
+        state.data = self.driver.data
+        self.undo_stack.append(state)
+        self.redo_stack.clear()
+        self.driver.check_buttons()
+
+
+## Holds states of final solution
+class UndoRedoFinal(UndoRedo):
+    def __init__(self, driver):
+        super().__init__(driver)
+
+
+    ## Pop the previous state from undo stack and push it to the redo stack
+    #  Then, set the program's state to top of undo stack
+    def undo(self):
+        x = None
+        try:
+            if len(self.undo_stack) > 1:
+                x = self.undo_stack.pop()
+            else:
+                print('\a')
+        except IndexError:
+            print('\a')
+        finally:
+            if x:
+                self.redo_stack.append(x)
+                y = self.undo_stack[-1]
+                self.driver.output_image = y.output_image
+                self.driver.cluster_holder_final = y.cluster_holder_final
+                self.driver.final_info = y.final_info
+                self.driver.update_io_labels()
+                self.driver.update_info_panels()
+                self.driver.check_buttons()
+
+    ## Pop from the top of redo stack, then push it to the undo stack
+    #  Set the current state of the program to popped state
+    def redo(self):
+        x = None
+        try:
+            x = self.redo_stack.pop()
+        except IndexError:
+            print('\a')
+        finally:
+            if x:
+                self.undo_stack.append(x)
+                self.driver.output_image = x.output_image
+                self.driver.cluster_holder_final = x.cluster_holder_final
+                self.driver.final_info = x.final_info
+                self.driver.update_io_labels()
+                self.driver.update_info_panels()
+                self.driver.check_buttons()
+
+    ## At initilization of the class push initial state with default parameters to undo stack
+    #  And clear redo stack
+    def first_start(self):
+        state = FinalState()
+        state.output_image = self.driver.output_image
+        state.cluster_holder_final = self.driver.output_image
+        state.final_info = self.driver.final_info
+        self.undo_stack.append(state)
+        self.redo_stack.clear()
+
+    ## Undoable event happened
+    #  Save the current state of the program and push it to undo stack
+    #  Clear the redo stack
+    def undoable_event_happened(self):
+        state = FinalState()
+        state.output_image = self.driver.output_image
+        state.cluster_holder_final = self.driver.output_image
+        state.final_info = self.driver.final_info
+        self.undo_stack.append(state)
+        self.redo_stack.clear()
+        self.driver.check_buttons()
+
+## Driver for MainWindow
+#  This class should be created once(singleton)
 class Driver:
     def __init__(self, ui, MainWindow):
         self.ui = ui
@@ -22,14 +202,46 @@ class Driver:
         self.input_image = None
         self.output_image = None
         self.data = None
-        self.data = None
+        self.initial_info = ""
+        self.final_info = ""
         self.save_path = None
         self.cluster_holder = None
-        self.info = ""
+        self.cluster_holder_final = None
+        self.heuristics = None
+
+        self.undo_redo_initial = UndoRedoInitial(self)
+        self.undo_redo_final = UndoRedoFinal(self)
+        self.check_undo_redo_buttons()
         self.setup_icons()
         self.setup_signal_slots()
         self.create_widgets()
 
+    ## Update the info panels with new data
+    def update_info_panels(self):
+        self.clear_info()
+        self.clear_heuristics_info()
+        self.print_info(self.initial_info)
+        self.print_heuristics_info(self.final_info)
+
+    ## Update the image labels with new plots
+    def update_io_labels(self):
+        if self.input_image is not None:
+            io.imsave("resources/temp/input.png", self.input_image)
+            self.ui.label_initialSolution.setPixmap(QtGui.QPixmap("resources/temp/input.png"))
+        else:
+            self.ui.label_initialSolution.clear()
+
+        if self.output_image is not None:
+            io.imsave("resources/temp/output.png", self.output_image)
+            self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
+        else:
+            self.ui.label_finalSolution.clear()
+
+    ## Terminate the program
+    ## If user presses the exit button
+    #  If there are unsaved changes ask him to whether he wants to save them
+    #  Then ask "Are you sure to quit"
+    #  If answer is "Yes" quit, if not do nothing.
     def exit(self):
         if self.ui.toolButton_exportAsFinalSolution.isEnabled():
             reply = QtWidgets.QMessageBox.question(self.MainWindow, 'Unsaved Changes',
@@ -46,6 +258,7 @@ class Driver:
         if reply == QtWidgets.QMessageBox.Yes:
             QtWidgets.QApplication.quit()
 
+    ## Connect signals with slots
     def setup_signal_slots(self):
         self.ui.actionOpen_Data.triggered.connect(self.open_data)
         self.ui.actionSave_Initial_Solution.triggered.connect(self.save_initial_solution)
@@ -53,10 +266,10 @@ class Driver:
         self.ui.actionExit.triggered.connect(self.exit)
         self.ui.actionClear_Initial_Solution.triggered.connect(self.clear_initial_solution)
         self.ui.actionClear_Final_Solution.triggered.connect(self.clear_final_solution)
-        self.ui.actionUndo_Initial_Solution.triggered.connect(self.say_hello)
-        self.ui.actionUndo_Final_Solution.triggered.connect(self.say_hello)
-        self.ui.actionRedo_Initial_Solution.triggered.connect(self.say_hello)
-        self.ui.actionRedo_Final_Solution.triggered.connect(self.say_hello)
+        self.ui.actionUndo_Initial_Solution.triggered.connect(self.undo_redo_initial.undo)
+        self.ui.actionUndo_Final_Solution.triggered.connect(self.undo_redo_final.undo)
+        self.ui.actionRedo_Initial_Solution.triggered.connect(self.undo_redo_initial.redo)
+        self.ui.actionRedo_Final_Solution.triggered.connect(self.undo_redo_final.redo)
         self.ui.actionK_Means.triggered.connect(self.open_k_means)
         self.ui.actionAffinity_Propagation.triggered.connect(self.open_affinity)
         self.ui.actionMean_shift.triggered.connect(self.open_meanshift)
@@ -68,33 +281,53 @@ class Driver:
         self.ui.actionExport_As_Initial_Solution.triggered.connect(self.export_as_initial_solution)
         self.ui.actionExport_As_Final_Solution.triggered.connect(self.export_as_final_solution)
 
+    ## Apply hil climbing optimization algorithm to refine initial solution
     def hill_climbing(self):
-        HillClimbing(self.cluster_holder, n_iterations=1000)
+        self.clear_heuristics_info()
+        self.heuristics = HillClimbing(deepcopy(self.cluster_holder), n_iterations=1000)
+        self.cluster_holder_final = self.heuristics.get_final_solution()
+        self.print_heuristics_info("### DATA ###")
+        self.print_heuristics_info(self.data)
+        self.print_heuristics_info(self.heuristics.info)
+        self.print_heuristics_info(self.cluster_holder_final.info)
         self.plot_final_solution()
-        self.check_buttons()
-        # self.check_save_export_as_buttons()
-        # self.check_undo_redo_buttons()
-        # self.check_clear_buttons()
+        self.undo_redo_final.undoable_event_happened()
 
+    ## Save initial solution info (to *.txt file)
     def save_initial_solution(self):
-        ...
+        self.save_path, _ = QtWidgets.QFileDialog.getSaveFileName(filter="Text files (*.txt)")
+        if len(self.save_path) != 0:
+            with open(self.save_path, "w") as f:
+                f.write(self.initial_info)
+                f.close()
 
+    ## Save final solution info (to *.txt file)
     def save_final_solution(self):
-        ...
+        self.save_path, _ = QtWidgets.QFileDialog.getSaveFileName(filter="Text files (*.txt)")
+        if len(self.save_path) != 0:
+            with open(self.save_path, "w") as f:
+                f.write(self.final_info)
+                f.close()
 
+    ## Clear initial solution (clear initial solution plot and initial solution info)
+    #  Also invoke clear_final_solution
     def clear_initial_solution(self):
         if self.input_image is not None:
             self.ui.label_initialSolution.clear()
             self.input_image = None
+        self.clear_info()
         self.clear_final_solution()
-        self.check_buttons()
+        self.undo_redo_initial.undoable_event_happened()
 
+    ## Clear final solution (clear final solution plot and final solution info)
     def clear_final_solution(self):
         if self.output_image is not None:
             self.ui.label_finalSolution.clear()
             self.output_image = None
-        self.check_buttons()
+        self.clear_heuristics_info()
+        self.undo_redo_final.undoable_event_happened()
 
+    ## Save initial solution plot (to *.jpg file)
     def export_as_initial_solution(self):
         if self.input_image is not None:
             self.save_path, _ = QtWidgets.QFileDialog.getSaveFileName(filter="Image files (*.jpg)")
@@ -105,6 +338,7 @@ class Driver:
             QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning - Output is empty',
                                           'You must process input image before saving.')
 
+    ## Save final solution plot (to *.jpg file)
     def export_as_final_solution(self):
         if self.output_image is not None:
             self.save_path, _ = QtWidgets.QFileDialog.getSaveFileName(filter="Image files (*.jpg)")
@@ -114,9 +348,11 @@ class Driver:
         else:
             QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning - Output is empty',
                                           'You must process input image before saving.')
-
+    ## Open input data (point cloud) (*.txt)
     def open_data(self):
         try:
+            self.clear_info()
+            self.clear_heuristics_info()
             self.print_info("Opening data...")
             fname, _ = QtWidgets.QFileDialog.getOpenFileName(filter="Text files (*.txt)")
             self.data = np.loadtxt(fname)
@@ -125,16 +361,34 @@ class Driver:
             self.print_info(self.data)
 
             self.plot_initial_solution()
-            self.check_buttons()
-            # self.check_clustering_buttons()
-            # self.check_clear_buttons()
+            self.undo_redo_initial.undoable_event_happened()
+
+
         except FileNotFoundError:
             QtWidgets.QMessageBox.warning(QtWidgets.QDialog(), 'Warning',
                                           "Couldn't open file.")
 
+    ## Clear initial solution info
+    def clear_info(self):
+        self.ui.textBrowser_infoPanel.clear()
+
+    ## Clear final solution info
+    def clear_heuristics_info(self):
+        self.ui.textBrowser_infoPanel_final.clear()
+
+    ## Append new data to initial solution info
     def print_info(self, info):
         self.ui.textBrowser_infoPanel.append(str(info))
+        self.ui.textBrowser_infoPanel.moveCursor(QtGui.QTextCursor.End)
+        self.initial_info = self.ui.textBrowser_infoPanel.toPlainText()
 
+    ## Append new data to final solution info
+    def print_heuristics_info(self, info):
+        self.ui.textBrowser_infoPanel_final.append(str(info))
+        self.ui.textBrowser_infoPanel_final.moveCursor(QtGui.QTextCursor.End)
+        self.final_info = self.ui.textBrowser_infoPanel_final.toPlainText()
+
+    ## When new data cloud is opened, plot the points with black dots
     def plot_initial_solution(self):
         plt.clf()
         for i, (X,Y) in enumerate(self.data):
@@ -144,6 +398,7 @@ class Driver:
         self.input_image = io.imread("resources/temp/input.png")
         self.ui.label_initialSolution.setPixmap(QtGui.QPixmap("resources/temp/input.png"))
 
+    ## Update final solution plot
     def plot_final_solution(self):
         self.output_image = io.imread("resources/temp/output.png")
         self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
@@ -151,9 +406,12 @@ class Driver:
     def say_hello(self):
         print("HELLO THERE !")
 
+    ## Open K-Means clustering window and wait for user to enter parameters
     def open_k_means(self):
         self.kmeans_widget.show()
 
+    ## Take parameters from the KMeansParams pop up window and check their validity
+    #  If they are all valid, apply clustering algorithm
     def k_means(self):
         try:
             data = self.kmeans_ui.n_clusters.text()
@@ -176,12 +434,17 @@ class Driver:
         algorithm = self.kmeans_ui.algorithm.currentText()
         operation = ClusterKMeans(self.data, KMeansParams(n_clusters, init, max_iter, algorithm), self.ui, self)
         self.cluster_holder = operation.get_cluster_holder()
+        self.check_heuristics_buttons()  # do not delete this line
         self.kmeans_widget.hide()
         self.print_info(self.cluster_holder.info)
+        self.undo_redo_initial.undoable_event_happened()
 
+    ## Open affinity propagation clustering window and wait for user to enter parameters
     def open_affinity(self):
         self.affinity_widget.show()
 
+    ## Take parameters from the AffinityParams pop up window and check their validity
+    #  If they are all valid, apply clustering algorithm
     def affinity(self):
         try:
             data = self.affinity_ui.damping.text()
@@ -221,12 +484,17 @@ class Driver:
 
         operation = ClusterAffinity(self.data, AffinityParams(damping, max_iter, convergence_iter, affinity, random_state), self.ui, self)
         self.cluster_holder = operation.get_cluster_holder()
+        self.check_heuristics_buttons() # do not delete this line
         self.affinity_widget.hide()
         self.print_info(self.cluster_holder.info)
+        self.undo_redo_initial.undoable_event_happened()
 
+    ## Open dbscan clustering window and wait for user to enter parameters
     def open_dbscan(self):
         self.dbscan_widget.show()
 
+    ## Take parameters from the DBSCANParams pop up window and check their validity
+    #  If they are all valid, apply clustering algorithm
     def dbscan(self):
         try:
             data = self.dbscan_ui.eps.text()
@@ -257,12 +525,18 @@ class Driver:
 
         operation = ClusterDBSCAN(self.data, DBSCANParams(eps, min_samples, algorithm, p), self.ui, self)
         self.cluster_holder = operation.get_cluster_holder()
+        self.check_heuristics_buttons()  # do not delete this line
         self.dbscan_widget.hide()
         self.print_info(self.cluster_holder.info)
+        self.undo_redo_initial.undoable_event_happened()
 
+    ## Open hierarchical clustering window and wait for user to enter parameters
     def open_hierarchical(self):
         self.hierarchical_widget.show()
 
+
+    ## Take parameters from the HierarchicalParams pop up window and check their validity
+    #  If they are all valid, apply clustering algorithm
     def hierarchical(self):
         try:
             data = self.hierarchical_ui.n_clusters.text()
@@ -276,12 +550,17 @@ class Driver:
         linkage = self.hierarchical_ui.linkage.currentText()
         operation = ClusterHierarchical(self.data, HierarchicalParams(n_clusters, affinity, linkage), self.ui, self)
         self.cluster_holder = operation.get_cluster_holder()
+        self.check_heuristics_buttons()  # do not delete this line
         self.hierarchical_widget.hide()
         self.print_info(self.cluster_holder.info)
+        self.undo_redo_initial.undoable_event_happened()
 
+    ## Open meanshift clustering window and wait for user to enter parameters
     def open_meanshift(self):
         self.meanshift_widget.show()
 
+    ## Take parameters from the MeanShiftParams pop up window and check their validity
+    #  If they are all valid, apply clustering algorithm
     def meanshift(self):
         try:
             data = self.meanshift_ui.bandwidth.text()
@@ -309,12 +588,17 @@ class Driver:
             cluster_all = False
         operation = ClusterMeanShift(self.data, MeanShiftParams(bandwidth, max_iter, cluster_all), self.ui, self)
         self.cluster_holder = operation.get_cluster_holder()
+        self.check_heuristics_buttons()  # do not delete this line
         self.meanshift_widget.hide()
         self.print_info(self.cluster_holder.info)
+        self.undo_redo_initial.undoable_event_happened()
 
+    ## Open spectral clustering window and wait for user to enter parameters
     def open_spectral(self):
         self.spectral_widget.show()
 
+    ## Take parameters from the SpectralParams pop up window and check their validity
+    #  If they are all valid, apply clustering algorithm
     def spectral(self):
         try:
             data = self.spectral_ui.n_clusters.text()
@@ -346,9 +630,12 @@ class Driver:
         assign_labels = self.spectral_ui.assign_labels.currentText()
         operation = ClusterSpectral(self.data, SpectralParams(n_clusters, n_components, n_init, assign_labels), self.ui, self)
         self.cluster_holder = operation.get_cluster_holder()
+        self.check_heuristics_buttons()  # do not delete this line
         self.spectral_widget.hide()
         self.print_info(self.cluster_holder.info)
+        self.undo_redo_initial.undoable_event_happened()
 
+    ## Invoke enable disable check of all buttons
     def check_buttons(self):
         self.check_undo_redo_buttons()
         self.check_clear_buttons()
@@ -356,6 +643,7 @@ class Driver:
         self.check_save_export_as_buttons()
         self.check_heuristics_buttons()
 
+    ## Enable disable check of clear buttons
     def check_clear_buttons(self):
         if self.input_image is not None:
             self.ui.toolButton_clearInitialSolution.setEnabled(True)
@@ -371,6 +659,7 @@ class Driver:
             self.ui.toolButton_clearFinalSolution.setEnabled(False)
             self.ui.actionClear_Final_Solution.setEnabled(False)
 
+    ## Enable disable check of export as buttons
     def check_save_export_as_buttons(self):
         if self.input_image is not None:
             self.ui.toolButton_saveInitialSolution.setEnabled(True)
@@ -394,8 +683,9 @@ class Driver:
             self.ui.actionSave_Final_Solution.setEnabled(False)
             self.ui.actionExport_As_Final_Solution.setEnabled(False)
 
+    ## Enable disable check of heuristics buttons
     def check_heuristics_buttons(self):
-        if self.input_image is not None:
+        if self.input_image is not None and self.cluster_holder is not None:
             self.ui.toolButton_hillClimbing.setEnabled(True)
             self.ui.toolButton_simulatedAnneling.setEnabled(True)
             self.ui.actionHill_Climbing.setEnabled(True)
@@ -406,6 +696,7 @@ class Driver:
             self.ui.actionHill_Climbing.setEnabled(False)
             self.ui.actionSimulated_Anneling.setEnabled(False)
 
+    ## Enable disable check of clustering buttons
     def check_clustering_buttons(self):
         if self.input_image is not None:
             self.ui.actionK_Means.setEnabled(True)
@@ -436,45 +727,47 @@ class Driver:
             self.ui.toolButton_spectralClustering.setEnabled(False)
             self.ui.toolButton_dbscan.setEnabled(False)
 
-
+    ## Enable disable check of undo redo buttons
     def check_undo_redo_buttons(self):
-        print("HELLO")
-        # if len(self.initial_undo_stack) > 1:
-        #     self.ui.toolButton_undoInitialSolution.setEnabled(True)
-        #     self.ui.actionUndo_Initial_Solution.setEnabled(True)
-        # else:
-        #     self.ui.toolButton_undoInitialSolution.setEnabled(False)
-        #     self.ui.actionUndo_Initial_Solution.setEnabled(False)
-        #
-        # if len(self.initial_redo_stack) > 0:
-        #     self.ui.toolButton_redoInitialSolution.setEnabled(True)
-        #     self.ui.actionRedo_Initial_Solution.setEnabled(True)
-        # else:
-        #     self.ui.toolButton_redoInitialSolution.setEnabled(False)
-        #     self.ui.actionRedo_Initial_Solution.setEnabled(False)
-        #
-        # if len(self.final_undo_stack) > 1:
-        #     self.ui.toolButton_undoFinalSolution.setEnabled(True)
-        #     self.ui.actionUndo_Final_Solution.setEnabled(True)
-        # else:
-        #     self.ui.toolButton_undoFinalSolution.setEnabled(False)
-        #     self.ui.actionUndo_Final_Solution.setEnabled(False)
-        #
-        # if len(self.final_redo_stack) > 0:
-        #     self.ui.toolButton_redoFinalSolution.setEnabled(True)
-        #     self.ui.actionRedo_Final_Solution.setEnabled(True)
-        # else:
-        #     self.ui.toolButton_redoFinalSolution.setEnabled(False)
-        #     self.ui.actionRedo_Final_Solution.setEnabled(False)
+        if len(self.undo_redo_initial.undo_stack) > 1:
+            self.ui.toolButton_undoInitialSolution.setEnabled(True)
+            self.ui.actionUndo_Initial_Solution.setEnabled(True)
+        else:
+            self.ui.toolButton_undoInitialSolution.setEnabled(False)
+            self.ui.actionUndo_Initial_Solution.setEnabled(False)
 
+        if len(self.undo_redo_initial.redo_stack) > 0:
+            self.ui.toolButton_redoInitialSolution.setEnabled(True)
+            self.ui.actionRedo_Initial_Solution.setEnabled(True)
+        else:
+            self.ui.toolButton_redoInitialSolution.setEnabled(False)
+            self.ui.actionRedo_Initial_Solution.setEnabled(False)
+
+        if len(self.undo_redo_final.undo_stack) > 1:
+            self.ui.toolButton_undoFinalSolution.setEnabled(True)
+            self.ui.actionUndo_Final_Solution.setEnabled(True)
+        else:
+            self.ui.toolButton_undoFinalSolution.setEnabled(False)
+            self.ui.actionUndo_Final_Solution.setEnabled(False)
+
+        if len(self.undo_redo_final.redo_stack) > 0:
+            self.ui.toolButton_redoFinalSolution.setEnabled(True)
+            self.ui.actionRedo_Final_Solution.setEnabled(True)
+        else:
+            self.ui.toolButton_redoFinalSolution.setEnabled(False)
+            self.ui.actionRedo_Final_Solution.setEnabled(False)
+
+    ## Update initial solution plot
     def update_input_image(self):
         self.input_image = io.imread("resources/temp/input.png")
         self.ui.label_initialSolution.setPixmap(QtGui.QPixmap("resources/temp/input.png"))
 
+    ## Update final solution plot
     def update_output_image(self):
         self.output = io.imread("resources/temp/output.png")
-        self.ui.label_initialSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
+        self.ui.label_finalSolution.setPixmap(QtGui.QPixmap("resources/temp/output.png"))
 
+    ## At the initialization of Driver class create the parameter asking widgets
     def create_widgets(self):
         self.kmeans_widget = QtWidgets.QWidget()
         self.kmeans_ui = Ui_Form_K_Means()
@@ -506,6 +799,7 @@ class Driver:
         self.spectral_ui.setupUi(self.spectral_widget)
         self.spectral_ui.OKButton.clicked['bool'].connect(self.spectral)
 
+    ## Put icons on buttons
     def setup_icons(self):
         self.ui.toolButton_openData.setIcon(QtGui.QIcon("resources/icons/open.png"))
 

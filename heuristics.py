@@ -5,9 +5,10 @@ from utils import ClusterHolder
 from copy import deepcopy
 import numpy as np
 
-
+## Base class for Heuristics
 class Heuristics:
 	def __init__(self, ch: ClusterHolder, n_iterations: int):
+		self.info = ""
 		self.colorspace = ["purple", "cyan", "green", "orange", "brown", "gray", "magenta", "blue", "yellow", "pink"]
 		self.ch_origin = deepcopy(ch)
 		self.ch = ch
@@ -17,16 +18,25 @@ class Heuristics:
 		self.evaluate()
 		self.plot_clustering()
 
+	## When operation is done, by calling this function we get new clusters
+	#  @return Manipulated (optimized) clusters. --> ClusterHolder object.
+	def get_final_solution(self):
+		self.ch_origin.rewrite_info()
+		return self.ch_origin
+
+	## Override this function
 	def evaluate(self): # override this function
 		...
 
-	def relocate_hub(self):  # Change the location of the hub in a randomly chosen cluster with a randomly chosen node in the same cluster
+	## Change the location of the hub in a randomly chosen cluster with a randomly chosen node in the same cluster
+	def relocate_hub(self):
 		rand_cl = self.rand_cluster()
 		rand_cl.central_node_index = randint(len(rand_cl.points))
 		rand_cl.central_node = rand_cl.points[rand_cl.central_node_index]
 
-	def reallocate_node(self):  # From a randomly chosen cluster, change the allocation of non-hub node to a different randomly chosen cluster.
-		# If the randomly chosen cluster consists of only one node, we do not allow this operation.
+	## From a randomly chosen cluster, change the allocation of non-hub node to a different randomly chosen cluster.
+	#  If the randomly chosen cluster consists of only one node, we do not allow this operation.
+	def reallocate_node(self):  
 		rand_cl = self.rand_cluster()
 		rand_cl2 = self.rand_cluster()
 		r_node_index, r_node = self.rand_node(rand_cl)
@@ -39,7 +49,8 @@ class Heuristics:
 		rand_cl.central_node = rand_cl.points[rand_cl.central_node_index]
 
 
-	def swap_nodes(self):  # Swap the allocations of two randomly chosen non-hub nodes from different clusters.
+	## Swap the allocations of two randomly chosen non-hub nodes from different clusters.
+	def swap_nodes(self):
 		rand_cl = self.rand_cluster()
 		r_node_index, r_node = self.rand_node(rand_cl)
 		rand_cl2 = self.rand_cluster()
@@ -57,16 +68,19 @@ class Heuristics:
 		rand_cl.central_node = rand_cl.points[rand_cl.central_node_index]
 		rand_cl2.central_node = rand_cl2.points[rand_cl2.central_node_index]
 
+	## Pick a random cluster and return it
 	def rand_cluster(self):
 		return self.ch.clusters[randint(self.n_clusters)]
 
+	## Pick a random node in given cluster and return it and its index
 	def rand_node(self, cluster):
 		index = randint(len(cluster.points))
 		return index, cluster.points[index]
 
+	## Plot final solution that improved from initial solution
 	def plot_clustering(self):
 		plt.clf()
-		for index, cluster in enumerate(self.ch.clusters):
+		for index, cluster in enumerate(self.ch_origin.clusters):
 			plt.scatter(cluster.center_point[0], cluster.center_point[1], color="red", marker="x", s=130)
 			for i, (X,Y) in enumerate(cluster.points):
 				plt.scatter(X, Y, color=self.colorspace[cluster.cluster_index % len(self.colorspace)])
@@ -76,12 +90,18 @@ class Heuristics:
 		plt.savefig("resources/temp/output.png")
 
 
+## HillClimbing optimization algorithm
 class HillClimbing(Heuristics):
+	## Constructor
+	# @param n_iterations Number of iterations.
 	def __init__(self, ch, n_iterations):
 		super().__init__(ch, n_iterations)
 
+	## Run --> hill climbing
 	def evaluate(self):
+		self.info += f"\nRunning hill-climbing algorithm for {self.n_iterations} times\n"
 		solution_eval = self.initial_score
+		self.info += f"Initial score is {self.initial_score}\n\n"
 		for i in range(self.n_iterations):
 			# take a step
 			self.relocate_hub()  # --> do some modifications and find new solution candidate
@@ -95,34 +115,20 @@ class HillClimbing(Heuristics):
 				self.ch_origin = deepcopy(self.ch)
 				solution_eval = candidate_eval
 				# report progress
-				print('>%d f(%s) = %.5f\n\n' % (i, self.ch, solution_eval))  # --> report he progress
+				self.info += f"Iteration({i}) - New solution found, new score --> {solution_eval:.3f}\n"  # --> report the progress
 			else:
 				self.ch = deepcopy(self.ch_origin)
-		print("Initial was --> ", self.initial_score, "new score --> ", solution_eval)
+		self.info += f"\nInitial score --> {self.initial_score}, New score --> {solution_eval}\n"
 		# return [solution, solution_eval]
 
-class SimulatedAnneling(Heuristics):
+
+## SimulatedAnnealing optimization algorithm
+class SimulatedAnnealing(Heuristics):
+	## Constructor
+	# @param n_iterations Number of iterations.
 	def __init__(self, ch, n_iterations):
 		super().__init__(ch, n_iterations)
 
-
-# hill climbing local search algorithm
-def hillclimbing(objective, bounds, n_iterations, step_size):
-
-	# generate an initial point														--> get initial clusters
-	solution = bounds[:, 0] + rand(len(bounds)) * (bounds[:, 1] - bounds[:, 0])
-	# evaluate the initial point													--> do not evaluate (we have initial solution score)
-	solution_eval = objective(solution)
-	# run the hill climb
-	for i in range(n_iterations):
-		# take a step
-		candidate = solution + randn(len(bounds)) * step_size					#	--> do some modifications and find new solution candidate
-		# evaluate candidate point
-		candidte_eval = objective(candidate)									#	--> get objective function score from it
-		# check if we should keep the new point
-		if candidte_eval <= solution_eval:										#	--> if candidate_score is lower than initial score (we will use greater than)
-			# store the new point
-			solution, solution_eval = candidate, candidte_eval					#	--> store the clusters and cluster score
-			# report progress
-			print('>%d f(%s) = %.5f' % (i, solution, solution_eval))			#	--> report he progress
-	return [solution, solution_eval]
+	## Run --> simulated annealing
+	def evaluate(self):
+		...

@@ -4,7 +4,7 @@ import numpy as np
 from utils import ClusterHolder
 from params import AffinityParams, MeanShiftParams, KMeansParams, SpectralParams, HierarchicalParams, DBSCANParams
 
-
+## Base class for clustering algorithms
 class Clustering:
     def __init__(self, data, params, ui, driver):
         self.colorspace = np.array(
@@ -22,24 +22,36 @@ class Clustering:
         self.plot_clustering()
         self.__post_init__()
 
+    ## Do after initialization
+    #  Check buttons and update initial solution graph
     def __post_init__(self):
         self.driver.check_buttons()
         self.driver.update_input_image()
 
+    ## Create an instance of ClusterHolder to hold and manipulate all clusters
     def get_cluster_holder(self):
         return self.cluster
 
-    def get_clustering(self):  # override this function
+    ## Apply clustering
+    #  Override this function
+    def get_clustering(self): 
         ...
 
-    def print_params(self): # override this function
+    ## Print clustering parameters into left info panel
+    #  override this function
+    def print_params(self): 
         ...
 
+    ## Find out which cluster the points belong to
     def find_labels(self):
         self.labels = self.clustering.labels_
         self.driver.print_info("\nClustering labels")
         self.driver.print_info(self.labels)
 
+    ## Plot the clusters in matplotlib
+    #  Center points with red cross
+    #  Center nodes with red dot
+    #  Same clusters points having same color
     def plot_clustering(self):
         plt.clf()
         for index, i in enumerate(self.cluster.clusters):
@@ -57,6 +69,7 @@ class Clustering:
         # plt.show()
 
 
+## Apply K-Means clustering algorithm
 class ClusterKMeans(Clustering):
     def __init__(self, data, params, ui, driver):
         super().__init__(data, params, ui, driver)
@@ -69,6 +82,7 @@ class ClusterKMeans(Clustering):
         self.clustering = KMeans(n_clusters=self.params.n_clusters, init=self.params.init, max_iter=self.params.max_iter, algorithm=self.params.algorithm).fit(self.data)
 
 
+## Apply Affinity Propagation clustering algorithm
 class ClusterAffinity(Clustering):
     def __init__(self, data, params, ui, driver):
         super().__init__(data, params, ui, driver)
@@ -82,6 +96,7 @@ class ClusterAffinity(Clustering):
                              affinity=self.params.affinity, random_state=self.params.random_state).fit(self.data)
 
 
+## Apply Mean-Shift clustering algorithm
 class ClusterMeanShift(Clustering):
     def __init__(self, data, params, ui, driver):
         super().__init__(data, params, ui, driver)
@@ -94,6 +109,7 @@ class ClusterMeanShift(Clustering):
         self.clustering = MeanShift(bandwidth=self.params.bandwidth, max_iter=self.params.max_iter, cluster_all=self.params.cluster_all).fit(self.data)
 
 
+## Apply Spectral clustering algorithm
 class ClusterSpectral(Clustering):
     def __init__(self, data, params, ui, driver):
         super().__init__(data, params, ui, driver)
@@ -106,6 +122,7 @@ class ClusterSpectral(Clustering):
         self.clustering = SpectralClustering(n_clusters=self.params.n_clusters, n_components=self.params.n_components, n_init=self.params.n_init, assign_labels=self.params.assign_labels).fit(self.data)
 
 
+## Apply Hierarchical clustering algorithm
 class ClusterHierarchical(Clustering):
     def __init__(self, data, params, ui, driver):
         super().__init__(data, params, ui, driver)
@@ -118,6 +135,7 @@ class ClusterHierarchical(Clustering):
         self.clustering = AgglomerativeClustering(n_clusters=self.params.n_clusters, affinity=self.params.affinity, linkage=self.params.linkage).fit(self.data)
 
 
+## Apply DBSCAN clustering algorithm
 class ClusterDBSCAN(Clustering):
     def __init__(self, data, params, ui, driver):
         super().__init__(data, params, ui, driver)

@@ -1,0 +1,192 @@
+\hypertarget{classclustering_1_1_clustering}{}\doxysection{clustering.\+Clustering Class Reference}
+\label{classclustering_1_1_clustering}\index{clustering.Clustering@{clustering.Clustering}}
+
+
+Base class for clustering algorithms.  
+
+
+Inheritance diagram for clustering.\+Clustering\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.987654cm]{classclustering_1_1_clustering}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classclustering_1_1_clustering_a69f5f77265cbf2e671c2c90375ba81b4}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classclustering_1_1_clustering_a9428002bd0ae4880a18840cbdb2c1e52}{data}}, \mbox{\hyperlink{classclustering_1_1_clustering_ad680020a0f315958383cc47888d514cc}{params}}, \mbox{\hyperlink{classclustering_1_1_clustering_a0261b2734ce180b0eb2df16fd9ad3924}{ui}}, \mbox{\hyperlink{classclustering_1_1_clustering_a46999baf90b834a3d56e1cf7411ebf7d}{driver}})
+\item 
+def \mbox{\hyperlink{classclustering_1_1_clustering_a848ad03f6bc2e11e9dbddc2110c24d9f}{\+\_\+\+\_\+post\+\_\+init\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Do after initialization Check buttons and update initial solution graph. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classclustering_1_1_clustering_af1fc08afe0a11e628f1303454d3470df}{get\+\_\+cluster\+\_\+holder}} (self)
+\begin{DoxyCompactList}\small\item\em Create an instance of Cluster\+Holder to hold and manipulate all clusters. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classclustering_1_1_clustering_a19dbdd9b4d579c4e81461826e1fa5179}{get\+\_\+clustering}} (self)
+\begin{DoxyCompactList}\small\item\em Apply clustering Override this function. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classclustering_1_1_clustering_ae6cbf7619eb47d5fbac7c1b30730cbf9}{print\+\_\+params}} (self)
+\begin{DoxyCompactList}\small\item\em Print clustering parameters into left info panel override this function. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classclustering_1_1_clustering_a91b9b3a7b06a01c10ffb3b94fd3d2b0b}{find\+\_\+labels}} (self)
+\begin{DoxyCompactList}\small\item\em Find out which cluster the points belong to. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classclustering_1_1_clustering_a02df620790b47d1caaaddf97427986a7}{plot\+\_\+clustering}} (self)
+\begin{DoxyCompactList}\small\item\em Plot the clusters in matplotlib Center points with red cross Center nodes with red dot Same clusters points having same color. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclustering_1_1_clustering_a55cf642eb90180fcbfb8f00460d9d9e7}{colorspace}}
+\item 
+\mbox{\hyperlink{classclustering_1_1_clustering_ad680020a0f315958383cc47888d514cc}{params}}
+\item 
+\mbox{\hyperlink{classclustering_1_1_clustering_a9428002bd0ae4880a18840cbdb2c1e52}{data}}
+\item 
+\mbox{\hyperlink{classclustering_1_1_clustering_a9e5a4547b2d7836c84b6e9ef2f30ab03}{labels}}
+\item 
+\mbox{\hyperlink{classclustering_1_1_clustering_a7baff4eedab4dbc6ae280d9d28996c62}{clustering}}
+\item 
+\mbox{\hyperlink{classclustering_1_1_clustering_a0261b2734ce180b0eb2df16fd9ad3924}{ui}}
+\item 
+\mbox{\hyperlink{classclustering_1_1_clustering_a46999baf90b834a3d56e1cf7411ebf7d}{driver}}
+\item 
+\mbox{\hyperlink{classclustering_1_1_clustering_ae65985d65b006dd5d2e52fc3d9a61300}{cluster}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base class for clustering algorithms. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classclustering_1_1_clustering_a69f5f77265cbf2e671c2c90375ba81b4}\label{classclustering_1_1_clustering_a69f5f77265cbf2e671c2c90375ba81b4}} 
+\index{clustering.Clustering@{clustering.Clustering}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!clustering.Clustering@{clustering.Clustering}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def clustering.\+Clustering.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data,  }\item[{}]{params,  }\item[{}]{ui,  }\item[{}]{driver }\end{DoxyParamCaption})}
+
+
+
+Reimplemented in \mbox{\hyperlink{classclustering_1_1_cluster_k_means_ae518f7d2bd0293720eea3f037fdfac93}{clustering.\+Cluster\+KMeans}}, \mbox{\hyperlink{classclustering_1_1_cluster_affinity_a6a2327ac5a69b65b0fad3fa8e5b899c3}{clustering.\+Cluster\+Affinity}}, \mbox{\hyperlink{classclustering_1_1_cluster_mean_shift_af627a469a27e618c2411f8ffed5d699e}{clustering.\+Cluster\+Mean\+Shift}}, \mbox{\hyperlink{classclustering_1_1_cluster_spectral_a23315d3e0059d484413ca04aad40503a}{clustering.\+Cluster\+Spectral}}, \mbox{\hyperlink{classclustering_1_1_cluster_hierarchical_a7ecab181e687021cc5e80cd8f1010127}{clustering.\+Cluster\+Hierarchical}}, and \mbox{\hyperlink{classclustering_1_1_cluster_d_b_s_c_a_n_ab96b75d61421337aacb5a1be9dc30330}{clustering.\+Cluster\+DBSCAN}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classclustering_1_1_clustering_a848ad03f6bc2e11e9dbddc2110c24d9f}\label{classclustering_1_1_clustering_a848ad03f6bc2e11e9dbddc2110c24d9f}} 
+\index{clustering.Clustering@{clustering.Clustering}!\_\_post\_init\_\_@{\_\_post\_init\_\_}}
+\index{\_\_post\_init\_\_@{\_\_post\_init\_\_}!clustering.Clustering@{clustering.Clustering}}
+\doxysubsubsection{\texorpdfstring{\_\_post\_init\_\_()}{\_\_post\_init\_\_()}}
+{\footnotesize\ttfamily def clustering.\+Clustering.\+\_\+\+\_\+post\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Do after initialization Check buttons and update initial solution graph. 
+
+\mbox{\Hypertarget{classclustering_1_1_clustering_a91b9b3a7b06a01c10ffb3b94fd3d2b0b}\label{classclustering_1_1_clustering_a91b9b3a7b06a01c10ffb3b94fd3d2b0b}} 
+\index{clustering.Clustering@{clustering.Clustering}!find\_labels@{find\_labels}}
+\index{find\_labels@{find\_labels}!clustering.Clustering@{clustering.Clustering}}
+\doxysubsubsection{\texorpdfstring{find\_labels()}{find\_labels()}}
+{\footnotesize\ttfamily def clustering.\+Clustering.\+find\+\_\+labels (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Find out which cluster the points belong to. 
+
+\mbox{\Hypertarget{classclustering_1_1_clustering_af1fc08afe0a11e628f1303454d3470df}\label{classclustering_1_1_clustering_af1fc08afe0a11e628f1303454d3470df}} 
+\index{clustering.Clustering@{clustering.Clustering}!get\_cluster\_holder@{get\_cluster\_holder}}
+\index{get\_cluster\_holder@{get\_cluster\_holder}!clustering.Clustering@{clustering.Clustering}}
+\doxysubsubsection{\texorpdfstring{get\_cluster\_holder()}{get\_cluster\_holder()}}
+{\footnotesize\ttfamily def clustering.\+Clustering.\+get\+\_\+cluster\+\_\+holder (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Create an instance of Cluster\+Holder to hold and manipulate all clusters. 
+
+\mbox{\Hypertarget{classclustering_1_1_clustering_a19dbdd9b4d579c4e81461826e1fa5179}\label{classclustering_1_1_clustering_a19dbdd9b4d579c4e81461826e1fa5179}} 
+\index{clustering.Clustering@{clustering.Clustering}!get\_clustering@{get\_clustering}}
+\index{get\_clustering@{get\_clustering}!clustering.Clustering@{clustering.Clustering}}
+\doxysubsubsection{\texorpdfstring{get\_clustering()}{get\_clustering()}}
+{\footnotesize\ttfamily def clustering.\+Clustering.\+get\+\_\+clustering (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Apply clustering Override this function. 
+
+
+
+Reimplemented in \mbox{\hyperlink{classclustering_1_1_cluster_k_means_a758412f92d7f62eea1de23358316d9a3}{clustering.\+Cluster\+KMeans}}, \mbox{\hyperlink{classclustering_1_1_cluster_affinity_a0e1da44f2cde1b6f7155a78101504c7c}{clustering.\+Cluster\+Affinity}}, \mbox{\hyperlink{classclustering_1_1_cluster_mean_shift_ad910a49a17f07c7d123a8b0bfbd5c5ce}{clustering.\+Cluster\+Mean\+Shift}}, \mbox{\hyperlink{classclustering_1_1_cluster_spectral_a3758c7f282cf99aa28714c733f61f9b6}{clustering.\+Cluster\+Spectral}}, \mbox{\hyperlink{classclustering_1_1_cluster_hierarchical_a595fda5dc75a1aaf9e4c0f3633ce9f88}{clustering.\+Cluster\+Hierarchical}}, and \mbox{\hyperlink{classclustering_1_1_cluster_d_b_s_c_a_n_a5811e24f53c3dc2879656e16ff0529ff}{clustering.\+Cluster\+DBSCAN}}.
+
+\mbox{\Hypertarget{classclustering_1_1_clustering_a02df620790b47d1caaaddf97427986a7}\label{classclustering_1_1_clustering_a02df620790b47d1caaaddf97427986a7}} 
+\index{clustering.Clustering@{clustering.Clustering}!plot\_clustering@{plot\_clustering}}
+\index{plot\_clustering@{plot\_clustering}!clustering.Clustering@{clustering.Clustering}}
+\doxysubsubsection{\texorpdfstring{plot\_clustering()}{plot\_clustering()}}
+{\footnotesize\ttfamily def clustering.\+Clustering.\+plot\+\_\+clustering (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Plot the clusters in matplotlib Center points with red cross Center nodes with red dot Same clusters points having same color. 
+
+\mbox{\Hypertarget{classclustering_1_1_clustering_ae6cbf7619eb47d5fbac7c1b30730cbf9}\label{classclustering_1_1_clustering_ae6cbf7619eb47d5fbac7c1b30730cbf9}} 
+\index{clustering.Clustering@{clustering.Clustering}!print\_params@{print\_params}}
+\index{print\_params@{print\_params}!clustering.Clustering@{clustering.Clustering}}
+\doxysubsubsection{\texorpdfstring{print\_params()}{print\_params()}}
+{\footnotesize\ttfamily def clustering.\+Clustering.\+print\+\_\+params (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Print clustering parameters into left info panel override this function. 
+
+
+
+Reimplemented in \mbox{\hyperlink{classclustering_1_1_cluster_k_means_a1760e38ce8fdae591e8515bf4b75404b}{clustering.\+Cluster\+KMeans}}, \mbox{\hyperlink{classclustering_1_1_cluster_affinity_a0a41738c4d8d9021e3f7dc8891947370}{clustering.\+Cluster\+Affinity}}, \mbox{\hyperlink{classclustering_1_1_cluster_mean_shift_a52732561a62e23f5eec57baeeaddb667}{clustering.\+Cluster\+Mean\+Shift}}, \mbox{\hyperlink{classclustering_1_1_cluster_spectral_a9a7b9a2e181b0d8544f05161817d5c05}{clustering.\+Cluster\+Spectral}}, \mbox{\hyperlink{classclustering_1_1_cluster_hierarchical_a3e8fdc63212edbb43bff149e03e94ba1}{clustering.\+Cluster\+Hierarchical}}, and \mbox{\hyperlink{classclustering_1_1_cluster_d_b_s_c_a_n_a683b15f65fd607ff2fbd976c33b1d533}{clustering.\+Cluster\+DBSCAN}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classclustering_1_1_clustering_ae65985d65b006dd5d2e52fc3d9a61300}\label{classclustering_1_1_clustering_ae65985d65b006dd5d2e52fc3d9a61300}} 
+\index{clustering.Clustering@{clustering.Clustering}!cluster@{cluster}}
+\index{cluster@{cluster}!clustering.Clustering@{clustering.Clustering}}
+\doxysubsubsection{\texorpdfstring{cluster}{cluster}}
+{\footnotesize\ttfamily clustering.\+Clustering.\+cluster}
+
+\mbox{\Hypertarget{classclustering_1_1_clustering_a7baff4eedab4dbc6ae280d9d28996c62}\label{classclustering_1_1_clustering_a7baff4eedab4dbc6ae280d9d28996c62}} 
+\index{clustering.Clustering@{clustering.Clustering}!clustering@{clustering}}
+\index{clustering@{clustering}!clustering.Clustering@{clustering.Clustering}}
+\doxysubsubsection{\texorpdfstring{clustering}{clustering}}
+{\footnotesize\ttfamily clustering.\+Clustering.\+clustering}
+
+\mbox{\Hypertarget{classclustering_1_1_clustering_a55cf642eb90180fcbfb8f00460d9d9e7}\label{classclustering_1_1_clustering_a55cf642eb90180fcbfb8f00460d9d9e7}} 
+\index{clustering.Clustering@{clustering.Clustering}!colorspace@{colorspace}}
+\index{colorspace@{colorspace}!clustering.Clustering@{clustering.Clustering}}
+\doxysubsubsection{\texorpdfstring{colorspace}{colorspace}}
+{\footnotesize\ttfamily clustering.\+Clustering.\+colorspace}
+
+\mbox{\Hypertarget{classclustering_1_1_clustering_a9428002bd0ae4880a18840cbdb2c1e52}\label{classclustering_1_1_clustering_a9428002bd0ae4880a18840cbdb2c1e52}} 
+\index{clustering.Clustering@{clustering.Clustering}!data@{data}}
+\index{data@{data}!clustering.Clustering@{clustering.Clustering}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily clustering.\+Clustering.\+data}
+
+\mbox{\Hypertarget{classclustering_1_1_clustering_a46999baf90b834a3d56e1cf7411ebf7d}\label{classclustering_1_1_clustering_a46999baf90b834a3d56e1cf7411ebf7d}} 
+\index{clustering.Clustering@{clustering.Clustering}!driver@{driver}}
+\index{driver@{driver}!clustering.Clustering@{clustering.Clustering}}
+\doxysubsubsection{\texorpdfstring{driver}{driver}}
+{\footnotesize\ttfamily clustering.\+Clustering.\+driver}
+
+\mbox{\Hypertarget{classclustering_1_1_clustering_a9e5a4547b2d7836c84b6e9ef2f30ab03}\label{classclustering_1_1_clustering_a9e5a4547b2d7836c84b6e9ef2f30ab03}} 
+\index{clustering.Clustering@{clustering.Clustering}!labels@{labels}}
+\index{labels@{labels}!clustering.Clustering@{clustering.Clustering}}
+\doxysubsubsection{\texorpdfstring{labels}{labels}}
+{\footnotesize\ttfamily clustering.\+Clustering.\+labels}
+
+\mbox{\Hypertarget{classclustering_1_1_clustering_ad680020a0f315958383cc47888d514cc}\label{classclustering_1_1_clustering_ad680020a0f315958383cc47888d514cc}} 
+\index{clustering.Clustering@{clustering.Clustering}!params@{params}}
+\index{params@{params}!clustering.Clustering@{clustering.Clustering}}
+\doxysubsubsection{\texorpdfstring{params}{params}}
+{\footnotesize\ttfamily clustering.\+Clustering.\+params}
+
+\mbox{\Hypertarget{classclustering_1_1_clustering_a0261b2734ce180b0eb2df16fd9ad3924}\label{classclustering_1_1_clustering_a0261b2734ce180b0eb2df16fd9ad3924}} 
+\index{clustering.Clustering@{clustering.Clustering}!ui@{ui}}
+\index{ui@{ui}!clustering.Clustering@{clustering.Clustering}}
+\doxysubsubsection{\texorpdfstring{ui}{ui}}
+{\footnotesize\ttfamily clustering.\+Clustering.\+ui}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{clustering_8py}{clustering.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,99 @@
+\hypertarget{classdriver_1_1_undo_redo_initial}{}\doxysection{driver.\+Undo\+Redo\+Initial Class Reference}
+\label{classdriver_1_1_undo_redo_initial}\index{driver.UndoRedoInitial@{driver.UndoRedoInitial}}
+
+
+Holds states of initial solution.  
+
+
+Inheritance diagram for driver.\+Undo\+Redo\+Initial\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classdriver_1_1_undo_redo_initial}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classdriver_1_1_undo_redo_initial_a281f1edd27328f9c53eb7e5ff1a8c9ce}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classdriver_1_1_undo_redo_aed3d0153aac873efa3a21d04ed70dc75}{driver}})
+\item 
+def \mbox{\hyperlink{classdriver_1_1_undo_redo_initial_a15749c51fff01f38b93a05786574a5ec}{undo}} (self)
+\begin{DoxyCompactList}\small\item\em Pop the previous state from undo stack and push it to the redo stack Then, set the program\textquotesingle{}s state to top of undo stack. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_undo_redo_initial_afa666a0e33a6e00fff47e9de1be670dd}{redo}} (self)
+\begin{DoxyCompactList}\small\item\em Pop from the top of redo stack, then push it to the undo stack Set the current state of the program to popped state. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_undo_redo_initial_aac05a75f3003c7ddebf467edbf82f32f}{first\+\_\+start}} (self)
+\begin{DoxyCompactList}\small\item\em At initilization of the class push initial state with default parameters to undo stack And clear redo stack. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_undo_redo_initial_a794021a1f723c0866e5abc10b5ed2914}{undoable\+\_\+event\+\_\+happened}} (self)
+\begin{DoxyCompactList}\small\item\em Undoable event happened Save the current state of the program and push it to undo stack Clear the redo stack. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Holds states of initial solution. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classdriver_1_1_undo_redo_initial_a281f1edd27328f9c53eb7e5ff1a8c9ce}\label{classdriver_1_1_undo_redo_initial_a281f1edd27328f9c53eb7e5ff1a8c9ce}} 
+\index{driver.UndoRedoInitial@{driver.UndoRedoInitial}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!driver.UndoRedoInitial@{driver.UndoRedoInitial}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def driver.\+Undo\+Redo\+Initial.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{driver }\end{DoxyParamCaption})}
+
+
+
+Reimplemented from \mbox{\hyperlink{classdriver_1_1_undo_redo_a1681ac4392ff87fe2cb9bd1cdbaa3b72}{driver.\+Undo\+Redo}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classdriver_1_1_undo_redo_initial_aac05a75f3003c7ddebf467edbf82f32f}\label{classdriver_1_1_undo_redo_initial_aac05a75f3003c7ddebf467edbf82f32f}} 
+\index{driver.UndoRedoInitial@{driver.UndoRedoInitial}!first\_start@{first\_start}}
+\index{first\_start@{first\_start}!driver.UndoRedoInitial@{driver.UndoRedoInitial}}
+\doxysubsubsection{\texorpdfstring{first\_start()}{first\_start()}}
+{\footnotesize\ttfamily def driver.\+Undo\+Redo\+Initial.\+first\+\_\+start (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+At initilization of the class push initial state with default parameters to undo stack And clear redo stack. 
+
+
+
+Reimplemented from \mbox{\hyperlink{classdriver_1_1_undo_redo_a93d065e9f55367c9282859f7a3f2047f}{driver.\+Undo\+Redo}}.
+
+\mbox{\Hypertarget{classdriver_1_1_undo_redo_initial_afa666a0e33a6e00fff47e9de1be670dd}\label{classdriver_1_1_undo_redo_initial_afa666a0e33a6e00fff47e9de1be670dd}} 
+\index{driver.UndoRedoInitial@{driver.UndoRedoInitial}!redo@{redo}}
+\index{redo@{redo}!driver.UndoRedoInitial@{driver.UndoRedoInitial}}
+\doxysubsubsection{\texorpdfstring{redo()}{redo()}}
+{\footnotesize\ttfamily def driver.\+Undo\+Redo\+Initial.\+redo (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Pop from the top of redo stack, then push it to the undo stack Set the current state of the program to popped state. 
+
+\mbox{\Hypertarget{classdriver_1_1_undo_redo_initial_a15749c51fff01f38b93a05786574a5ec}\label{classdriver_1_1_undo_redo_initial_a15749c51fff01f38b93a05786574a5ec}} 
+\index{driver.UndoRedoInitial@{driver.UndoRedoInitial}!undo@{undo}}
+\index{undo@{undo}!driver.UndoRedoInitial@{driver.UndoRedoInitial}}
+\doxysubsubsection{\texorpdfstring{undo()}{undo()}}
+{\footnotesize\ttfamily def driver.\+Undo\+Redo\+Initial.\+undo (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Pop the previous state from undo stack and push it to the redo stack Then, set the program\textquotesingle{}s state to top of undo stack. 
+
+\mbox{\Hypertarget{classdriver_1_1_undo_redo_initial_a794021a1f723c0866e5abc10b5ed2914}\label{classdriver_1_1_undo_redo_initial_a794021a1f723c0866e5abc10b5ed2914}} 
+\index{driver.UndoRedoInitial@{driver.UndoRedoInitial}!undoable\_event\_happened@{undoable\_event\_happened}}
+\index{undoable\_event\_happened@{undoable\_event\_happened}!driver.UndoRedoInitial@{driver.UndoRedoInitial}}
+\doxysubsubsection{\texorpdfstring{undoable\_event\_happened()}{undoable\_event\_happened()}}
+{\footnotesize\ttfamily def driver.\+Undo\+Redo\+Initial.\+undoable\+\_\+event\+\_\+happened (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Undoable event happened Save the current state of the program and push it to undo stack Clear the redo stack. 
+
+
+
+Reimplemented from \mbox{\hyperlink{classdriver_1_1_undo_redo_a1a93cd7a39b2813fba7d047bbaa0b927}{driver.\+Undo\+Redo}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{driver_8py}{driver.\+py}}\end{DoxyCompactItemize}
