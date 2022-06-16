@@ -1,3 +1,7 @@
+## @package main
+#  Creates application
+#  Initializes QMainWindow object and setups UI on it
+
 import sys
 from ui import Ui_MainWindow
 from PyQt5 import QtWidgets

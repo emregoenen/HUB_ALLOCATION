@@ -5,7 +5,7 @@ from utils import ClusterHolder
 from copy import deepcopy
 import numpy as np
 
-
+## Base class for Heuristics
 class Heuristics:
 	def __init__(self, ch: ClusterHolder, n_iterations: int):
 		self.info = ""
@@ -18,20 +18,25 @@ class Heuristics:
 		self.evaluate()
 		self.plot_clustering()
 
+	## When operation is done, by calling this function we get new clusters
+	#  @return Manipulated (optimized) clusters. --> ClusterHolder object.
 	def get_final_solution(self):
 		self.ch_origin.rewrite_info()
 		return self.ch_origin
 
+	## Override this function
 	def evaluate(self): # override this function
 		...
 
-	def relocate_hub(self):  # Change the location of the hub in a randomly chosen cluster with a randomly chosen node in the same cluster
+	## Change the location of the hub in a randomly chosen cluster with a randomly chosen node in the same cluster
+	def relocate_hub(self):
 		rand_cl = self.rand_cluster()
 		rand_cl.central_node_index = randint(len(rand_cl.points))
 		rand_cl.central_node = rand_cl.points[rand_cl.central_node_index]
 
-	def reallocate_node(self):  # From a randomly chosen cluster, change the allocation of non-hub node to a different randomly chosen cluster.
-		# If the randomly chosen cluster consists of only one node, we do not allow this operation.
+	## From a randomly chosen cluster, change the allocation of non-hub node to a different randomly chosen cluster.
+	#  If the randomly chosen cluster consists of only one node, we do not allow this operation.
+	def reallocate_node(self):  
 		rand_cl = self.rand_cluster()
 		rand_cl2 = self.rand_cluster()
 		r_node_index, r_node = self.rand_node(rand_cl)
@@ -44,7 +49,8 @@ class Heuristics:
 		rand_cl.central_node = rand_cl.points[rand_cl.central_node_index]
 
 
-	def swap_nodes(self):  # Swap the allocations of two randomly chosen non-hub nodes from different clusters.
+	## Swap the allocations of two randomly chosen non-hub nodes from different clusters.
+	def swap_nodes(self):
 		rand_cl = self.rand_cluster()
 		r_node_index, r_node = self.rand_node(rand_cl)
 		rand_cl2 = self.rand_cluster()
@@ -62,13 +68,16 @@ class Heuristics:
 		rand_cl.central_node = rand_cl.points[rand_cl.central_node_index]
 		rand_cl2.central_node = rand_cl2.points[rand_cl2.central_node_index]
 
+	## Pick a random cluster and return it
 	def rand_cluster(self):
 		return self.ch.clusters[randint(self.n_clusters)]
 
+	## Pick a random node in given cluster and return it and its index
 	def rand_node(self, cluster):
 		index = randint(len(cluster.points))
 		return index, cluster.points[index]
 
+	## Plot final solution that improved from initial solution
 	def plot_clustering(self):
 		plt.clf()
 		for index, cluster in enumerate(self.ch_origin.clusters):
@@ -81,10 +90,14 @@ class Heuristics:
 		plt.savefig("resources/temp/output.png")
 
 
+## HillClimbing optimization algorithm
 class HillClimbing(Heuristics):
+	## Constructor
+	# @param n_iterations Number of iterations.
 	def __init__(self, ch, n_iterations):
 		super().__init__(ch, n_iterations)
 
+	## Run --> hill climbing
 	def evaluate(self):
 		self.info += f"\nRunning hill-climbing algorithm for {self.n_iterations} times\n"
 		solution_eval = self.initial_score
@@ -108,6 +121,14 @@ class HillClimbing(Heuristics):
 		self.info += f"\nInitial score --> {self.initial_score}, New score --> {solution_eval}\n"
 		# return [solution, solution_eval]
 
-class SimulatedAnneling(Heuristics):
+
+## SimulatedAnnealing optimization algorithm
+class SimulatedAnnealing(Heuristics):
+	## Constructor
+	# @param n_iterations Number of iterations.
 	def __init__(self, ch, n_iterations):
 		super().__init__(ch, n_iterations)
+
+	## Run --> simulated annealing
+	def evaluate(self):
+		...

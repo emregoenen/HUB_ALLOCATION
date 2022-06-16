@@ -1,0 +1,734 @@
+\hypertarget{classdriver_1_1_driver}{}\doxysection{driver.\+Driver Class Reference}
+\label{classdriver_1_1_driver}\index{driver.Driver@{driver.Driver}}
+
+
+\mbox{\hyperlink{classdriver_1_1_driver}{Driver}} for Main\+Window This class should be created once(singleton)  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_aa5c6b09d468e72d169e074dc7be820b8}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classdriver_1_1_driver_adaea9cca46950e40ae491fdc23b61ed7}{ui}}, \mbox{\hyperlink{classdriver_1_1_driver_a88fab3f3493eca62ac384baa55b66712}{Main\+Window}})
+\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a1ca30f8b340d08a34d5ad5f9284f7c5e}{update\+\_\+info\+\_\+panels}} (self)
+\begin{DoxyCompactList}\small\item\em Update the info panels with new data. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a00d5556f0c89a47a46393ce10267eb73}{update\+\_\+io\+\_\+labels}} (self)
+\begin{DoxyCompactList}\small\item\em Update the image labels with new plots. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_ae1a7612a01b1cf6f7a41846592643071}{exit}} (self)
+\begin{DoxyCompactList}\small\item\em Terminate the program If user presses the exit button If there are unsaved changes ask him to whether he wants to save them Then ask \char`\"{}\+Are you sure to quit\char`\"{} If answer is \char`\"{}\+Yes\char`\"{} quit, if not do nothing. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a6f018109bad475563c7a691429160e79}{setup\+\_\+signal\+\_\+slots}} (self)
+\begin{DoxyCompactList}\small\item\em Connect signals with slots. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_aa18406916b99a426c9c4906b4b345f87}{hill\+\_\+climbing}} (self)
+\begin{DoxyCompactList}\small\item\em Apply hil climbing optimization algorithm to refine initial solution. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a020139a47b8c7327a22559bc1ead5d67}{save\+\_\+initial\+\_\+solution}} (self)
+\begin{DoxyCompactList}\small\item\em Save initial solution info (to $\ast$.txt file) \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_ad8483c530cf28dd72434bff028355baa}{save\+\_\+final\+\_\+solution}} (self)
+\begin{DoxyCompactList}\small\item\em Save final solution info (to $\ast$.txt file) \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a5b9bd65e3f86f484025f82040e7c843e}{clear\+\_\+initial\+\_\+solution}} (self)
+\begin{DoxyCompactList}\small\item\em Clear initial solution (clear initial solution plot and initial solution info) Also invoke clear\+\_\+final\+\_\+solution. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a7bd5e78ae53197e60292c12ef3c6aa47}{clear\+\_\+final\+\_\+solution}} (self)
+\begin{DoxyCompactList}\small\item\em Clear final solution (clear final solution plot and final solution info) \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a8effde0d1b9b0bee678ae27a329581a8}{export\+\_\+as\+\_\+initial\+\_\+solution}} (self)
+\begin{DoxyCompactList}\small\item\em Save initial solution plot (to $\ast$.jpg file) \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a5b299139cbfa905b331ea3d5f4f427bb}{export\+\_\+as\+\_\+final\+\_\+solution}} (self)
+\begin{DoxyCompactList}\small\item\em Save final solution plot (to $\ast$.jpg file) \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_af289c5e998dec6880086b7cb19861917}{open\+\_\+data}} (self)
+\begin{DoxyCompactList}\small\item\em Open input data (point cloud) ($\ast$.txt) \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a7ad9c66046dd6edee56df7d454b0262d}{clear\+\_\+info}} (self)
+\begin{DoxyCompactList}\small\item\em Clear initial solution info. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_ab7d746f6daf6e4a574ed015a0b09e27c}{clear\+\_\+heuristics\+\_\+info}} (self)
+\begin{DoxyCompactList}\small\item\em Clear final solution info. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a74adc5febab18a834d18d0985d7c349f}{print\+\_\+info}} (self, info)
+\begin{DoxyCompactList}\small\item\em Append new data to initial solution info. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a2056bda4e648f88571d139909fb1c571}{print\+\_\+heuristics\+\_\+info}} (self, info)
+\begin{DoxyCompactList}\small\item\em Append new data to final solution info. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_aa363284bab743d3f6b995fbf704f1a5b}{plot\+\_\+initial\+\_\+solution}} (self)
+\begin{DoxyCompactList}\small\item\em When new data cloud is opened, plot the points with black dots. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a39e93ca61c927e7e9568cf36d87c4add}{plot\+\_\+final\+\_\+solution}} (self)
+\begin{DoxyCompactList}\small\item\em Update final solution plot. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a18159670682e68cd6ec462c46b615cf8}{say\+\_\+hello}} (self)
+\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_afe03d415a4af7708d3bf9f9c697b1aa9}{open\+\_\+k\+\_\+means}} (self)
+\begin{DoxyCompactList}\small\item\em Open K-\/\+Means clustering window and wait for user to enter parameters. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_ae2655c8d5524e3664380e44e685c8dac}{k\+\_\+means}} (self)
+\begin{DoxyCompactList}\small\item\em Take parameters from the KMeans\+Params pop up window and check their validity If they are all valid, apply clustering algorithm. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_aad4c865f3cc4c533ff6ad81930b029c1}{open\+\_\+affinity}} (self)
+\begin{DoxyCompactList}\small\item\em Open affinity propagation clustering window and wait for user to enter parameters. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a6248e50fae4d29e4134fd59da2b45e1c}{affinity}} (self)
+\begin{DoxyCompactList}\small\item\em Take parameters from the Affinity\+Params pop up window and check their validity If they are all valid, apply clustering algorithm. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_af7bfe4da2221a39a7114a20bb1a5ab4c}{open\+\_\+dbscan}} (self)
+\begin{DoxyCompactList}\small\item\em Open dbscan clustering window and wait for user to enter parameters. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_aabf0c7d3e61d81c5fcbefe4bb21b21f0}{dbscan}} (self)
+\begin{DoxyCompactList}\small\item\em Take parameters from the DBSCANParams pop up window and check their validity If they are all valid, apply clustering algorithm. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_afc916c4a4f8bd7d27e4036524335be47}{open\+\_\+hierarchical}} (self)
+\begin{DoxyCompactList}\small\item\em Open hierarchical clustering window and wait for user to enter parameters. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_ae0b496c735c1049e25e7191324c50aa5}{hierarchical}} (self)
+\begin{DoxyCompactList}\small\item\em Take parameters from the Hierarchical\+Params pop up window and check their validity If they are all valid, apply clustering algorithm. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a2a35817fbfd2f015211379feb10c1a23}{open\+\_\+meanshift}} (self)
+\begin{DoxyCompactList}\small\item\em Open meanshift clustering window and wait for user to enter parameters. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a5a35f6a3e0290a09b54eddad8878afd2}{meanshift}} (self)
+\begin{DoxyCompactList}\small\item\em Take parameters from the Mean\+Shift\+Params pop up window and check their validity If they are all valid, apply clustering algorithm. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a54eecfdf03589a69352b90e4e2952184}{open\+\_\+spectral}} (self)
+\begin{DoxyCompactList}\small\item\em Open spectral clustering window and wait for user to enter parameters. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a40ecf05c5d46f80b5c4e58cecbc511af}{spectral}} (self)
+\begin{DoxyCompactList}\small\item\em Take parameters from the Spectral\+Params pop up window and check their validity If they are all valid, apply clustering algorithm. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_ab8413024cc5dcebbb06cec8098af22cb}{check\+\_\+buttons}} (self)
+\begin{DoxyCompactList}\small\item\em Invoke enable disable check of all buttons. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a12ac19f41cbd806e818323ae2fc941bb}{check\+\_\+clear\+\_\+buttons}} (self)
+\begin{DoxyCompactList}\small\item\em Enable disable check of clear buttons. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a628a4cbf42fee87d6db227e5657e637c}{check\+\_\+save\+\_\+export\+\_\+as\+\_\+buttons}} (self)
+\begin{DoxyCompactList}\small\item\em Enable disable check of export as buttons. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a6afb1e929aa50b88cc9b1e250cf6fe0f}{check\+\_\+heuristics\+\_\+buttons}} (self)
+\begin{DoxyCompactList}\small\item\em Enable disable check of heuristics buttons. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a373093eab41c36565b308f08bf3e03e8}{check\+\_\+clustering\+\_\+buttons}} (self)
+\begin{DoxyCompactList}\small\item\em Enable disable check of clustering buttons. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_add412b402e0868ec32f6871efab18ddf}{check\+\_\+undo\+\_\+redo\+\_\+buttons}} (self)
+\begin{DoxyCompactList}\small\item\em Enable disable check of undo redo buttons. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_aa4cf51d4e6131507a93d5871f7454b08}{update\+\_\+input\+\_\+image}} (self)
+\begin{DoxyCompactList}\small\item\em Update initial solution plot. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_ab0ca107b76b765d5e132fe5031e57949}{update\+\_\+output\+\_\+image}} (self)
+\begin{DoxyCompactList}\small\item\em Update final solution plot. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a872b2b184a810b5ab14d3231388bf271}{create\+\_\+widgets}} (self)
+\begin{DoxyCompactList}\small\item\em At the initialization of \mbox{\hyperlink{classdriver_1_1_driver}{Driver}} class create the parameter asking widgets. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdriver_1_1_driver_a21323273d06ef1cec26735431914dacf}{setup\+\_\+icons}} (self)
+\begin{DoxyCompactList}\small\item\em Put icons on buttons. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_adaea9cca46950e40ae491fdc23b61ed7}{ui}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a88fab3f3493eca62ac384baa55b66712}{Main\+Window}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a99179112878c6c09bd463a392953507f}{input\+\_\+image}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a07232f9719d15e7a653b0e86d724f088}{output\+\_\+image}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a3bbe9089d81182edefbbd8299b5f25a1}{data}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_ab42b6db90f5f11c72535ca876166b4e8}{initial\+\_\+info}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a0cffa5bc068a0eae9ad662b311bb73aa}{final\+\_\+info}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a406e4ac4140a0b4d9436b5107fc17111}{save\+\_\+path}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a53199a5789f9ac5adde3dc54567f526c}{cluster\+\_\+holder}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a2e82e36b75e6c3e8ba12f556e2172c98}{cluster\+\_\+holder\+\_\+final}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_acd1838ddd56be38f6eb1d4329906790c}{heuristics}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_aa866953073d448b22502aa0d90808a62}{undo\+\_\+redo\+\_\+initial}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_af5e9885fe1fa8b6e40cdd59a3c165474}{undo\+\_\+redo\+\_\+final}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a448fb0387edcd6288933925f765c57e0}{output}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_adfd621f1761874c3efcdffe7b87cf579}{kmeans\+\_\+widget}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a9beb930e811d331858c8ba4194c318b9}{kmeans\+\_\+ui}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_ab32ab5c9dca8c27e7c13d82886d2cd16}{affinity\+\_\+widget}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a0e4372d40e8f0fc5afc28dca028cbe05}{affinity\+\_\+ui}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_ad70bf7e81b0ac0acdf86c98bbec11eca}{dbscan\+\_\+widget}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_ab379b56a534ad7baba22d126d6d2e397}{dbscan\+\_\+ui}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a5a5ce3471ce92da6a20b5d75c4fb24a1}{hierarchical\+\_\+widget}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a07030e8bc3114fc4f4ffec54efab471a}{hierarchical\+\_\+ui}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a73388ad0c4b89bc57e33ca9a5170d731}{meanshift\+\_\+widget}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a8545e43e67f9834d28744ec95203e983}{meanshift\+\_\+ui}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a15f0ff4a82ba40836f249c60b3ba396b}{spectral\+\_\+widget}}
+\item 
+\mbox{\hyperlink{classdriver_1_1_driver_a93257cffd0753a4324f2901d96dde924}{spectral\+\_\+ui}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classdriver_1_1_driver}{Driver}} for Main\+Window This class should be created once(singleton) 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classdriver_1_1_driver_aa5c6b09d468e72d169e074dc7be820b8}\label{classdriver_1_1_driver_aa5c6b09d468e72d169e074dc7be820b8}} 
+\index{driver.Driver@{driver.Driver}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ui,  }\item[{}]{Main\+Window }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classdriver_1_1_driver_a6248e50fae4d29e4134fd59da2b45e1c}\label{classdriver_1_1_driver_a6248e50fae4d29e4134fd59da2b45e1c}} 
+\index{driver.Driver@{driver.Driver}!affinity@{affinity}}
+\index{affinity@{affinity}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{affinity()}{affinity()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+affinity (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Take parameters from the Affinity\+Params pop up window and check their validity If they are all valid, apply clustering algorithm. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_ab8413024cc5dcebbb06cec8098af22cb}\label{classdriver_1_1_driver_ab8413024cc5dcebbb06cec8098af22cb}} 
+\index{driver.Driver@{driver.Driver}!check\_buttons@{check\_buttons}}
+\index{check\_buttons@{check\_buttons}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{check\_buttons()}{check\_buttons()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+check\+\_\+buttons (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Invoke enable disable check of all buttons. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a12ac19f41cbd806e818323ae2fc941bb}\label{classdriver_1_1_driver_a12ac19f41cbd806e818323ae2fc941bb}} 
+\index{driver.Driver@{driver.Driver}!check\_clear\_buttons@{check\_clear\_buttons}}
+\index{check\_clear\_buttons@{check\_clear\_buttons}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{check\_clear\_buttons()}{check\_clear\_buttons()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+check\+\_\+clear\+\_\+buttons (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Enable disable check of clear buttons. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a373093eab41c36565b308f08bf3e03e8}\label{classdriver_1_1_driver_a373093eab41c36565b308f08bf3e03e8}} 
+\index{driver.Driver@{driver.Driver}!check\_clustering\_buttons@{check\_clustering\_buttons}}
+\index{check\_clustering\_buttons@{check\_clustering\_buttons}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{check\_clustering\_buttons()}{check\_clustering\_buttons()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+check\+\_\+clustering\+\_\+buttons (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Enable disable check of clustering buttons. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a6afb1e929aa50b88cc9b1e250cf6fe0f}\label{classdriver_1_1_driver_a6afb1e929aa50b88cc9b1e250cf6fe0f}} 
+\index{driver.Driver@{driver.Driver}!check\_heuristics\_buttons@{check\_heuristics\_buttons}}
+\index{check\_heuristics\_buttons@{check\_heuristics\_buttons}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{check\_heuristics\_buttons()}{check\_heuristics\_buttons()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+check\+\_\+heuristics\+\_\+buttons (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Enable disable check of heuristics buttons. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a628a4cbf42fee87d6db227e5657e637c}\label{classdriver_1_1_driver_a628a4cbf42fee87d6db227e5657e637c}} 
+\index{driver.Driver@{driver.Driver}!check\_save\_export\_as\_buttons@{check\_save\_export\_as\_buttons}}
+\index{check\_save\_export\_as\_buttons@{check\_save\_export\_as\_buttons}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{check\_save\_export\_as\_buttons()}{check\_save\_export\_as\_buttons()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+check\+\_\+save\+\_\+export\+\_\+as\+\_\+buttons (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Enable disable check of export as buttons. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_add412b402e0868ec32f6871efab18ddf}\label{classdriver_1_1_driver_add412b402e0868ec32f6871efab18ddf}} 
+\index{driver.Driver@{driver.Driver}!check\_undo\_redo\_buttons@{check\_undo\_redo\_buttons}}
+\index{check\_undo\_redo\_buttons@{check\_undo\_redo\_buttons}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{check\_undo\_redo\_buttons()}{check\_undo\_redo\_buttons()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+check\+\_\+undo\+\_\+redo\+\_\+buttons (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Enable disable check of undo redo buttons. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a7bd5e78ae53197e60292c12ef3c6aa47}\label{classdriver_1_1_driver_a7bd5e78ae53197e60292c12ef3c6aa47}} 
+\index{driver.Driver@{driver.Driver}!clear\_final\_solution@{clear\_final\_solution}}
+\index{clear\_final\_solution@{clear\_final\_solution}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{clear\_final\_solution()}{clear\_final\_solution()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+clear\+\_\+final\+\_\+solution (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Clear final solution (clear final solution plot and final solution info) 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_ab7d746f6daf6e4a574ed015a0b09e27c}\label{classdriver_1_1_driver_ab7d746f6daf6e4a574ed015a0b09e27c}} 
+\index{driver.Driver@{driver.Driver}!clear\_heuristics\_info@{clear\_heuristics\_info}}
+\index{clear\_heuristics\_info@{clear\_heuristics\_info}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{clear\_heuristics\_info()}{clear\_heuristics\_info()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+clear\+\_\+heuristics\+\_\+info (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Clear final solution info. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a7ad9c66046dd6edee56df7d454b0262d}\label{classdriver_1_1_driver_a7ad9c66046dd6edee56df7d454b0262d}} 
+\index{driver.Driver@{driver.Driver}!clear\_info@{clear\_info}}
+\index{clear\_info@{clear\_info}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{clear\_info()}{clear\_info()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+clear\+\_\+info (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Clear initial solution info. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a5b9bd65e3f86f484025f82040e7c843e}\label{classdriver_1_1_driver_a5b9bd65e3f86f484025f82040e7c843e}} 
+\index{driver.Driver@{driver.Driver}!clear\_initial\_solution@{clear\_initial\_solution}}
+\index{clear\_initial\_solution@{clear\_initial\_solution}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{clear\_initial\_solution()}{clear\_initial\_solution()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+clear\+\_\+initial\+\_\+solution (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Clear initial solution (clear initial solution plot and initial solution info) Also invoke clear\+\_\+final\+\_\+solution. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a872b2b184a810b5ab14d3231388bf271}\label{classdriver_1_1_driver_a872b2b184a810b5ab14d3231388bf271}} 
+\index{driver.Driver@{driver.Driver}!create\_widgets@{create\_widgets}}
+\index{create\_widgets@{create\_widgets}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{create\_widgets()}{create\_widgets()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+create\+\_\+widgets (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+At the initialization of \mbox{\hyperlink{classdriver_1_1_driver}{Driver}} class create the parameter asking widgets. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_aabf0c7d3e61d81c5fcbefe4bb21b21f0}\label{classdriver_1_1_driver_aabf0c7d3e61d81c5fcbefe4bb21b21f0}} 
+\index{driver.Driver@{driver.Driver}!dbscan@{dbscan}}
+\index{dbscan@{dbscan}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{dbscan()}{dbscan()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+dbscan (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Take parameters from the DBSCANParams pop up window and check their validity If they are all valid, apply clustering algorithm. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_ae1a7612a01b1cf6f7a41846592643071}\label{classdriver_1_1_driver_ae1a7612a01b1cf6f7a41846592643071}} 
+\index{driver.Driver@{driver.Driver}!exit@{exit}}
+\index{exit@{exit}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{exit()}{exit()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+exit (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Terminate the program If user presses the exit button If there are unsaved changes ask him to whether he wants to save them Then ask \char`\"{}\+Are you sure to quit\char`\"{} If answer is \char`\"{}\+Yes\char`\"{} quit, if not do nothing. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a5b299139cbfa905b331ea3d5f4f427bb}\label{classdriver_1_1_driver_a5b299139cbfa905b331ea3d5f4f427bb}} 
+\index{driver.Driver@{driver.Driver}!export\_as\_final\_solution@{export\_as\_final\_solution}}
+\index{export\_as\_final\_solution@{export\_as\_final\_solution}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{export\_as\_final\_solution()}{export\_as\_final\_solution()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+export\+\_\+as\+\_\+final\+\_\+solution (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Save final solution plot (to $\ast$.jpg file) 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a8effde0d1b9b0bee678ae27a329581a8}\label{classdriver_1_1_driver_a8effde0d1b9b0bee678ae27a329581a8}} 
+\index{driver.Driver@{driver.Driver}!export\_as\_initial\_solution@{export\_as\_initial\_solution}}
+\index{export\_as\_initial\_solution@{export\_as\_initial\_solution}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{export\_as\_initial\_solution()}{export\_as\_initial\_solution()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+export\+\_\+as\+\_\+initial\+\_\+solution (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Save initial solution plot (to $\ast$.jpg file) 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_ae0b496c735c1049e25e7191324c50aa5}\label{classdriver_1_1_driver_ae0b496c735c1049e25e7191324c50aa5}} 
+\index{driver.Driver@{driver.Driver}!hierarchical@{hierarchical}}
+\index{hierarchical@{hierarchical}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{hierarchical()}{hierarchical()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+hierarchical (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Take parameters from the Hierarchical\+Params pop up window and check their validity If they are all valid, apply clustering algorithm. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_aa18406916b99a426c9c4906b4b345f87}\label{classdriver_1_1_driver_aa18406916b99a426c9c4906b4b345f87}} 
+\index{driver.Driver@{driver.Driver}!hill\_climbing@{hill\_climbing}}
+\index{hill\_climbing@{hill\_climbing}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{hill\_climbing()}{hill\_climbing()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+hill\+\_\+climbing (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Apply hil climbing optimization algorithm to refine initial solution. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_ae2655c8d5524e3664380e44e685c8dac}\label{classdriver_1_1_driver_ae2655c8d5524e3664380e44e685c8dac}} 
+\index{driver.Driver@{driver.Driver}!k\_means@{k\_means}}
+\index{k\_means@{k\_means}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{k\_means()}{k\_means()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+k\+\_\+means (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Take parameters from the KMeans\+Params pop up window and check their validity If they are all valid, apply clustering algorithm. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a5a35f6a3e0290a09b54eddad8878afd2}\label{classdriver_1_1_driver_a5a35f6a3e0290a09b54eddad8878afd2}} 
+\index{driver.Driver@{driver.Driver}!meanshift@{meanshift}}
+\index{meanshift@{meanshift}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{meanshift()}{meanshift()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+meanshift (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Take parameters from the Mean\+Shift\+Params pop up window and check their validity If they are all valid, apply clustering algorithm. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_aad4c865f3cc4c533ff6ad81930b029c1}\label{classdriver_1_1_driver_aad4c865f3cc4c533ff6ad81930b029c1}} 
+\index{driver.Driver@{driver.Driver}!open\_affinity@{open\_affinity}}
+\index{open\_affinity@{open\_affinity}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{open\_affinity()}{open\_affinity()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+open\+\_\+affinity (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Open affinity propagation clustering window and wait for user to enter parameters. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_af289c5e998dec6880086b7cb19861917}\label{classdriver_1_1_driver_af289c5e998dec6880086b7cb19861917}} 
+\index{driver.Driver@{driver.Driver}!open\_data@{open\_data}}
+\index{open\_data@{open\_data}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{open\_data()}{open\_data()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+open\+\_\+data (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Open input data (point cloud) ($\ast$.txt) 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_af7bfe4da2221a39a7114a20bb1a5ab4c}\label{classdriver_1_1_driver_af7bfe4da2221a39a7114a20bb1a5ab4c}} 
+\index{driver.Driver@{driver.Driver}!open\_dbscan@{open\_dbscan}}
+\index{open\_dbscan@{open\_dbscan}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{open\_dbscan()}{open\_dbscan()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+open\+\_\+dbscan (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Open dbscan clustering window and wait for user to enter parameters. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_afc916c4a4f8bd7d27e4036524335be47}\label{classdriver_1_1_driver_afc916c4a4f8bd7d27e4036524335be47}} 
+\index{driver.Driver@{driver.Driver}!open\_hierarchical@{open\_hierarchical}}
+\index{open\_hierarchical@{open\_hierarchical}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{open\_hierarchical()}{open\_hierarchical()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+open\+\_\+hierarchical (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Open hierarchical clustering window and wait for user to enter parameters. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_afe03d415a4af7708d3bf9f9c697b1aa9}\label{classdriver_1_1_driver_afe03d415a4af7708d3bf9f9c697b1aa9}} 
+\index{driver.Driver@{driver.Driver}!open\_k\_means@{open\_k\_means}}
+\index{open\_k\_means@{open\_k\_means}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{open\_k\_means()}{open\_k\_means()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+open\+\_\+k\+\_\+means (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Open K-\/\+Means clustering window and wait for user to enter parameters. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a2a35817fbfd2f015211379feb10c1a23}\label{classdriver_1_1_driver_a2a35817fbfd2f015211379feb10c1a23}} 
+\index{driver.Driver@{driver.Driver}!open\_meanshift@{open\_meanshift}}
+\index{open\_meanshift@{open\_meanshift}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{open\_meanshift()}{open\_meanshift()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+open\+\_\+meanshift (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Open meanshift clustering window and wait for user to enter parameters. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a54eecfdf03589a69352b90e4e2952184}\label{classdriver_1_1_driver_a54eecfdf03589a69352b90e4e2952184}} 
+\index{driver.Driver@{driver.Driver}!open\_spectral@{open\_spectral}}
+\index{open\_spectral@{open\_spectral}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{open\_spectral()}{open\_spectral()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+open\+\_\+spectral (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Open spectral clustering window and wait for user to enter parameters. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a39e93ca61c927e7e9568cf36d87c4add}\label{classdriver_1_1_driver_a39e93ca61c927e7e9568cf36d87c4add}} 
+\index{driver.Driver@{driver.Driver}!plot\_final\_solution@{plot\_final\_solution}}
+\index{plot\_final\_solution@{plot\_final\_solution}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{plot\_final\_solution()}{plot\_final\_solution()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+plot\+\_\+final\+\_\+solution (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Update final solution plot. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_aa363284bab743d3f6b995fbf704f1a5b}\label{classdriver_1_1_driver_aa363284bab743d3f6b995fbf704f1a5b}} 
+\index{driver.Driver@{driver.Driver}!plot\_initial\_solution@{plot\_initial\_solution}}
+\index{plot\_initial\_solution@{plot\_initial\_solution}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{plot\_initial\_solution()}{plot\_initial\_solution()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+plot\+\_\+initial\+\_\+solution (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+When new data cloud is opened, plot the points with black dots. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a2056bda4e648f88571d139909fb1c571}\label{classdriver_1_1_driver_a2056bda4e648f88571d139909fb1c571}} 
+\index{driver.Driver@{driver.Driver}!print\_heuristics\_info@{print\_heuristics\_info}}
+\index{print\_heuristics\_info@{print\_heuristics\_info}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{print\_heuristics\_info()}{print\_heuristics\_info()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+print\+\_\+heuristics\+\_\+info (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{info }\end{DoxyParamCaption})}
+
+
+
+Append new data to final solution info. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a74adc5febab18a834d18d0985d7c349f}\label{classdriver_1_1_driver_a74adc5febab18a834d18d0985d7c349f}} 
+\index{driver.Driver@{driver.Driver}!print\_info@{print\_info}}
+\index{print\_info@{print\_info}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{print\_info()}{print\_info()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+print\+\_\+info (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{info }\end{DoxyParamCaption})}
+
+
+
+Append new data to initial solution info. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_ad8483c530cf28dd72434bff028355baa}\label{classdriver_1_1_driver_ad8483c530cf28dd72434bff028355baa}} 
+\index{driver.Driver@{driver.Driver}!save\_final\_solution@{save\_final\_solution}}
+\index{save\_final\_solution@{save\_final\_solution}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{save\_final\_solution()}{save\_final\_solution()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+save\+\_\+final\+\_\+solution (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Save final solution info (to $\ast$.txt file) 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a020139a47b8c7327a22559bc1ead5d67}\label{classdriver_1_1_driver_a020139a47b8c7327a22559bc1ead5d67}} 
+\index{driver.Driver@{driver.Driver}!save\_initial\_solution@{save\_initial\_solution}}
+\index{save\_initial\_solution@{save\_initial\_solution}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{save\_initial\_solution()}{save\_initial\_solution()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+save\+\_\+initial\+\_\+solution (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Save initial solution info (to $\ast$.txt file) 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a18159670682e68cd6ec462c46b615cf8}\label{classdriver_1_1_driver_a18159670682e68cd6ec462c46b615cf8}} 
+\index{driver.Driver@{driver.Driver}!say\_hello@{say\_hello}}
+\index{say\_hello@{say\_hello}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{say\_hello()}{say\_hello()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+say\+\_\+hello (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a21323273d06ef1cec26735431914dacf}\label{classdriver_1_1_driver_a21323273d06ef1cec26735431914dacf}} 
+\index{driver.Driver@{driver.Driver}!setup\_icons@{setup\_icons}}
+\index{setup\_icons@{setup\_icons}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{setup\_icons()}{setup\_icons()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+setup\+\_\+icons (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Put icons on buttons. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a6f018109bad475563c7a691429160e79}\label{classdriver_1_1_driver_a6f018109bad475563c7a691429160e79}} 
+\index{driver.Driver@{driver.Driver}!setup\_signal\_slots@{setup\_signal\_slots}}
+\index{setup\_signal\_slots@{setup\_signal\_slots}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{setup\_signal\_slots()}{setup\_signal\_slots()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+setup\+\_\+signal\+\_\+slots (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Connect signals with slots. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a40ecf05c5d46f80b5c4e58cecbc511af}\label{classdriver_1_1_driver_a40ecf05c5d46f80b5c4e58cecbc511af}} 
+\index{driver.Driver@{driver.Driver}!spectral@{spectral}}
+\index{spectral@{spectral}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{spectral()}{spectral()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+spectral (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Take parameters from the Spectral\+Params pop up window and check their validity If they are all valid, apply clustering algorithm. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a1ca30f8b340d08a34d5ad5f9284f7c5e}\label{classdriver_1_1_driver_a1ca30f8b340d08a34d5ad5f9284f7c5e}} 
+\index{driver.Driver@{driver.Driver}!update\_info\_panels@{update\_info\_panels}}
+\index{update\_info\_panels@{update\_info\_panels}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{update\_info\_panels()}{update\_info\_panels()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+update\+\_\+info\+\_\+panels (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Update the info panels with new data. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_aa4cf51d4e6131507a93d5871f7454b08}\label{classdriver_1_1_driver_aa4cf51d4e6131507a93d5871f7454b08}} 
+\index{driver.Driver@{driver.Driver}!update\_input\_image@{update\_input\_image}}
+\index{update\_input\_image@{update\_input\_image}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{update\_input\_image()}{update\_input\_image()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+update\+\_\+input\+\_\+image (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Update initial solution plot. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a00d5556f0c89a47a46393ce10267eb73}\label{classdriver_1_1_driver_a00d5556f0c89a47a46393ce10267eb73}} 
+\index{driver.Driver@{driver.Driver}!update\_io\_labels@{update\_io\_labels}}
+\index{update\_io\_labels@{update\_io\_labels}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{update\_io\_labels()}{update\_io\_labels()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+update\+\_\+io\+\_\+labels (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Update the image labels with new plots. 
+
+\mbox{\Hypertarget{classdriver_1_1_driver_ab0ca107b76b765d5e132fe5031e57949}\label{classdriver_1_1_driver_ab0ca107b76b765d5e132fe5031e57949}} 
+\index{driver.Driver@{driver.Driver}!update\_output\_image@{update\_output\_image}}
+\index{update\_output\_image@{update\_output\_image}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{update\_output\_image()}{update\_output\_image()}}
+{\footnotesize\ttfamily def driver.\+Driver.\+update\+\_\+output\+\_\+image (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Update final solution plot. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classdriver_1_1_driver_a0e4372d40e8f0fc5afc28dca028cbe05}\label{classdriver_1_1_driver_a0e4372d40e8f0fc5afc28dca028cbe05}} 
+\index{driver.Driver@{driver.Driver}!affinity\_ui@{affinity\_ui}}
+\index{affinity\_ui@{affinity\_ui}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{affinity\_ui}{affinity\_ui}}
+{\footnotesize\ttfamily driver.\+Driver.\+affinity\+\_\+ui}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_ab32ab5c9dca8c27e7c13d82886d2cd16}\label{classdriver_1_1_driver_ab32ab5c9dca8c27e7c13d82886d2cd16}} 
+\index{driver.Driver@{driver.Driver}!affinity\_widget@{affinity\_widget}}
+\index{affinity\_widget@{affinity\_widget}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{affinity\_widget}{affinity\_widget}}
+{\footnotesize\ttfamily driver.\+Driver.\+affinity\+\_\+widget}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a53199a5789f9ac5adde3dc54567f526c}\label{classdriver_1_1_driver_a53199a5789f9ac5adde3dc54567f526c}} 
+\index{driver.Driver@{driver.Driver}!cluster\_holder@{cluster\_holder}}
+\index{cluster\_holder@{cluster\_holder}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{cluster\_holder}{cluster\_holder}}
+{\footnotesize\ttfamily driver.\+Driver.\+cluster\+\_\+holder}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a2e82e36b75e6c3e8ba12f556e2172c98}\label{classdriver_1_1_driver_a2e82e36b75e6c3e8ba12f556e2172c98}} 
+\index{driver.Driver@{driver.Driver}!cluster\_holder\_final@{cluster\_holder\_final}}
+\index{cluster\_holder\_final@{cluster\_holder\_final}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{cluster\_holder\_final}{cluster\_holder\_final}}
+{\footnotesize\ttfamily driver.\+Driver.\+cluster\+\_\+holder\+\_\+final}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a3bbe9089d81182edefbbd8299b5f25a1}\label{classdriver_1_1_driver_a3bbe9089d81182edefbbd8299b5f25a1}} 
+\index{driver.Driver@{driver.Driver}!data@{data}}
+\index{data@{data}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily driver.\+Driver.\+data}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_ab379b56a534ad7baba22d126d6d2e397}\label{classdriver_1_1_driver_ab379b56a534ad7baba22d126d6d2e397}} 
+\index{driver.Driver@{driver.Driver}!dbscan\_ui@{dbscan\_ui}}
+\index{dbscan\_ui@{dbscan\_ui}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{dbscan\_ui}{dbscan\_ui}}
+{\footnotesize\ttfamily driver.\+Driver.\+dbscan\+\_\+ui}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_ad70bf7e81b0ac0acdf86c98bbec11eca}\label{classdriver_1_1_driver_ad70bf7e81b0ac0acdf86c98bbec11eca}} 
+\index{driver.Driver@{driver.Driver}!dbscan\_widget@{dbscan\_widget}}
+\index{dbscan\_widget@{dbscan\_widget}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{dbscan\_widget}{dbscan\_widget}}
+{\footnotesize\ttfamily driver.\+Driver.\+dbscan\+\_\+widget}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a0cffa5bc068a0eae9ad662b311bb73aa}\label{classdriver_1_1_driver_a0cffa5bc068a0eae9ad662b311bb73aa}} 
+\index{driver.Driver@{driver.Driver}!final\_info@{final\_info}}
+\index{final\_info@{final\_info}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{final\_info}{final\_info}}
+{\footnotesize\ttfamily driver.\+Driver.\+final\+\_\+info}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_acd1838ddd56be38f6eb1d4329906790c}\label{classdriver_1_1_driver_acd1838ddd56be38f6eb1d4329906790c}} 
+\index{driver.Driver@{driver.Driver}!heuristics@{heuristics}}
+\index{heuristics@{heuristics}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{heuristics}{heuristics}}
+{\footnotesize\ttfamily driver.\+Driver.\+heuristics}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a07030e8bc3114fc4f4ffec54efab471a}\label{classdriver_1_1_driver_a07030e8bc3114fc4f4ffec54efab471a}} 
+\index{driver.Driver@{driver.Driver}!hierarchical\_ui@{hierarchical\_ui}}
+\index{hierarchical\_ui@{hierarchical\_ui}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{hierarchical\_ui}{hierarchical\_ui}}
+{\footnotesize\ttfamily driver.\+Driver.\+hierarchical\+\_\+ui}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a5a5ce3471ce92da6a20b5d75c4fb24a1}\label{classdriver_1_1_driver_a5a5ce3471ce92da6a20b5d75c4fb24a1}} 
+\index{driver.Driver@{driver.Driver}!hierarchical\_widget@{hierarchical\_widget}}
+\index{hierarchical\_widget@{hierarchical\_widget}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{hierarchical\_widget}{hierarchical\_widget}}
+{\footnotesize\ttfamily driver.\+Driver.\+hierarchical\+\_\+widget}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_ab42b6db90f5f11c72535ca876166b4e8}\label{classdriver_1_1_driver_ab42b6db90f5f11c72535ca876166b4e8}} 
+\index{driver.Driver@{driver.Driver}!initial\_info@{initial\_info}}
+\index{initial\_info@{initial\_info}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{initial\_info}{initial\_info}}
+{\footnotesize\ttfamily driver.\+Driver.\+initial\+\_\+info}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a99179112878c6c09bd463a392953507f}\label{classdriver_1_1_driver_a99179112878c6c09bd463a392953507f}} 
+\index{driver.Driver@{driver.Driver}!input\_image@{input\_image}}
+\index{input\_image@{input\_image}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{input\_image}{input\_image}}
+{\footnotesize\ttfamily driver.\+Driver.\+input\+\_\+image}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a9beb930e811d331858c8ba4194c318b9}\label{classdriver_1_1_driver_a9beb930e811d331858c8ba4194c318b9}} 
+\index{driver.Driver@{driver.Driver}!kmeans\_ui@{kmeans\_ui}}
+\index{kmeans\_ui@{kmeans\_ui}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{kmeans\_ui}{kmeans\_ui}}
+{\footnotesize\ttfamily driver.\+Driver.\+kmeans\+\_\+ui}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_adfd621f1761874c3efcdffe7b87cf579}\label{classdriver_1_1_driver_adfd621f1761874c3efcdffe7b87cf579}} 
+\index{driver.Driver@{driver.Driver}!kmeans\_widget@{kmeans\_widget}}
+\index{kmeans\_widget@{kmeans\_widget}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{kmeans\_widget}{kmeans\_widget}}
+{\footnotesize\ttfamily driver.\+Driver.\+kmeans\+\_\+widget}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a88fab3f3493eca62ac384baa55b66712}\label{classdriver_1_1_driver_a88fab3f3493eca62ac384baa55b66712}} 
+\index{driver.Driver@{driver.Driver}!MainWindow@{MainWindow}}
+\index{MainWindow@{MainWindow}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{MainWindow}{MainWindow}}
+{\footnotesize\ttfamily driver.\+Driver.\+Main\+Window}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a8545e43e67f9834d28744ec95203e983}\label{classdriver_1_1_driver_a8545e43e67f9834d28744ec95203e983}} 
+\index{driver.Driver@{driver.Driver}!meanshift\_ui@{meanshift\_ui}}
+\index{meanshift\_ui@{meanshift\_ui}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{meanshift\_ui}{meanshift\_ui}}
+{\footnotesize\ttfamily driver.\+Driver.\+meanshift\+\_\+ui}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a73388ad0c4b89bc57e33ca9a5170d731}\label{classdriver_1_1_driver_a73388ad0c4b89bc57e33ca9a5170d731}} 
+\index{driver.Driver@{driver.Driver}!meanshift\_widget@{meanshift\_widget}}
+\index{meanshift\_widget@{meanshift\_widget}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{meanshift\_widget}{meanshift\_widget}}
+{\footnotesize\ttfamily driver.\+Driver.\+meanshift\+\_\+widget}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a448fb0387edcd6288933925f765c57e0}\label{classdriver_1_1_driver_a448fb0387edcd6288933925f765c57e0}} 
+\index{driver.Driver@{driver.Driver}!output@{output}}
+\index{output@{output}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{output}{output}}
+{\footnotesize\ttfamily driver.\+Driver.\+output}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a07232f9719d15e7a653b0e86d724f088}\label{classdriver_1_1_driver_a07232f9719d15e7a653b0e86d724f088}} 
+\index{driver.Driver@{driver.Driver}!output\_image@{output\_image}}
+\index{output\_image@{output\_image}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{output\_image}{output\_image}}
+{\footnotesize\ttfamily driver.\+Driver.\+output\+\_\+image}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a406e4ac4140a0b4d9436b5107fc17111}\label{classdriver_1_1_driver_a406e4ac4140a0b4d9436b5107fc17111}} 
+\index{driver.Driver@{driver.Driver}!save\_path@{save\_path}}
+\index{save\_path@{save\_path}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{save\_path}{save\_path}}
+{\footnotesize\ttfamily driver.\+Driver.\+save\+\_\+path}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a93257cffd0753a4324f2901d96dde924}\label{classdriver_1_1_driver_a93257cffd0753a4324f2901d96dde924}} 
+\index{driver.Driver@{driver.Driver}!spectral\_ui@{spectral\_ui}}
+\index{spectral\_ui@{spectral\_ui}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{spectral\_ui}{spectral\_ui}}
+{\footnotesize\ttfamily driver.\+Driver.\+spectral\+\_\+ui}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_a15f0ff4a82ba40836f249c60b3ba396b}\label{classdriver_1_1_driver_a15f0ff4a82ba40836f249c60b3ba396b}} 
+\index{driver.Driver@{driver.Driver}!spectral\_widget@{spectral\_widget}}
+\index{spectral\_widget@{spectral\_widget}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{spectral\_widget}{spectral\_widget}}
+{\footnotesize\ttfamily driver.\+Driver.\+spectral\+\_\+widget}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_adaea9cca46950e40ae491fdc23b61ed7}\label{classdriver_1_1_driver_adaea9cca46950e40ae491fdc23b61ed7}} 
+\index{driver.Driver@{driver.Driver}!ui@{ui}}
+\index{ui@{ui}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{ui}{ui}}
+{\footnotesize\ttfamily driver.\+Driver.\+ui}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_af5e9885fe1fa8b6e40cdd59a3c165474}\label{classdriver_1_1_driver_af5e9885fe1fa8b6e40cdd59a3c165474}} 
+\index{driver.Driver@{driver.Driver}!undo\_redo\_final@{undo\_redo\_final}}
+\index{undo\_redo\_final@{undo\_redo\_final}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{undo\_redo\_final}{undo\_redo\_final}}
+{\footnotesize\ttfamily driver.\+Driver.\+undo\+\_\+redo\+\_\+final}
+
+\mbox{\Hypertarget{classdriver_1_1_driver_aa866953073d448b22502aa0d90808a62}\label{classdriver_1_1_driver_aa866953073d448b22502aa0d90808a62}} 
+\index{driver.Driver@{driver.Driver}!undo\_redo\_initial@{undo\_redo\_initial}}
+\index{undo\_redo\_initial@{undo\_redo\_initial}!driver.Driver@{driver.Driver}}
+\doxysubsubsection{\texorpdfstring{undo\_redo\_initial}{undo\_redo\_initial}}
+{\footnotesize\ttfamily driver.\+Driver.\+undo\+\_\+redo\+\_\+initial}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{driver_8py}{driver.\+py}}\end{DoxyCompactItemize}

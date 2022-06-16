@@ -1,0 +1,213 @@
+\hypertarget{classutils_1_1_cluster_holder}{}\doxysection{utils.\+Cluster\+Holder Class Reference}
+\label{classutils_1_1_cluster_holder}\index{utils.ClusterHolder@{utils.ClusterHolder}}
+
+
+A class for holding and manipulating all clusters.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classutils_1_1_cluster_holder_a081dcc28f067dce43eb97a14ff9ace45}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classutils_1_1_cluster_holder_a5b9eb2e8c69a61d00e858e6c839998fb}{data}}, \mbox{\hyperlink{classutils_1_1_cluster_holder_a814bc764fd669cc3dc96a0e538f00d2f}{labels}}, \mbox{\hyperlink{classutils_1_1_cluster_holder_ad439c43e8ab6330738902316ba00a54e}{center\+\_\+points}}=None)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classutils_1_1_cluster_holder_a4fdaaa1db8590b00579f71e3403e778d}{rewrite\+\_\+info}} (self)
+\begin{DoxyCompactList}\small\item\em Update initial solution info Call this method when cluster points move or changes. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classutils_1_1_cluster_holder_a74d1f2164736036f8426e9785d37c588}{split\+\_\+into\+\_\+clusters}} (self)
+\begin{DoxyCompactList}\small\item\em Split datacloud into clusters. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classutils_1_1_cluster_holder_a41689c382129730f580860fb8fa0cea0}{print\+\_\+splitted\+\_\+clusters}} (self)
+\begin{DoxyCompactList}\small\item\em Generate splitted cluster info. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classutils_1_1_cluster_holder_a76e76f734babc2045799c4f4a78671fe}{print\+\_\+cluster\+\_\+center\+\_\+nodes}} (self)
+\begin{DoxyCompactList}\small\item\em Generate clusters\textquotesingle{} center node info. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classutils_1_1_cluster_holder_ac5ea64f6342cb8a4349c18de665b4809}{calculate\+\_\+objective\+\_\+function}} (self)
+\begin{DoxyCompactList}\small\item\em Calculate the objective function. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classutils_1_1_cluster_holder_a1a9b0c59c8e00f47992938f09b80b96e}{get\+\_\+data\+\_\+index\+\_\+by\+\_\+point}} (self, point)
+\begin{DoxyCompactList}\small\item\em Returns index of the point in data cloud. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classutils_1_1_cluster_holder_a27609e039072cf111805c5eec1cfb2a6}{get\+\_\+cluster\+\_\+distance\+\_\+of\+\_\+farthest\+\_\+points}} (self)
+\begin{DoxyCompactList}\small\item\em Calculate and return distances of farthest point for each cluster. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classutils_1_1_cluster_holder_a6db86c11ab353807799bd054d6c6af26}{find\+\_\+distance\+\_\+between\+\_\+clusters}} (self, a, b)
+\begin{DoxyCompactList}\small\item\em Calculates and returns distance between two cluster. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classutils_1_1_cluster_holder_ae17c8910b08ffb4da232eb87ccaaa053}{get\+\_\+cluster\+\_\+by\+\_\+index}} (self, index)
+\begin{DoxyCompactList}\small\item\em Returns cluster by given index. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classutils_1_1_cluster_holder_ab003de13f8d9e541673b5b2f85923b48}{info}}
+\item 
+\mbox{\hyperlink{classutils_1_1_cluster_holder_a32916c5ac29650dea0b9cd61a6d2306e}{clusters}}
+\item 
+\mbox{\hyperlink{classutils_1_1_cluster_holder_a5b9eb2e8c69a61d00e858e6c839998fb}{data}}
+\item 
+\mbox{\hyperlink{classutils_1_1_cluster_holder_a814bc764fd669cc3dc96a0e538f00d2f}{labels}}
+\item 
+\mbox{\hyperlink{classutils_1_1_cluster_holder_a43dcf11f71e38245edfd1431ce6b5d42}{n\+\_\+clusters}}
+\item 
+\mbox{\hyperlink{classutils_1_1_cluster_holder_ad439c43e8ab6330738902316ba00a54e}{center\+\_\+points}}
+\item 
+\mbox{\hyperlink{classutils_1_1_cluster_holder_a27578e31895d0f6d6638e966a7cd8304}{objective\+\_\+function}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class for holding and manipulating all clusters. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_a081dcc28f067dce43eb97a14ff9ace45}\label{classutils_1_1_cluster_holder_a081dcc28f067dce43eb97a14ff9ace45}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def utils.\+Cluster\+Holder.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data,  }\item[{}]{labels,  }\item[{}]{center\+\_\+points = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_ac5ea64f6342cb8a4349c18de665b4809}\label{classutils_1_1_cluster_holder_ac5ea64f6342cb8a4349c18de665b4809}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!calculate\_objective\_function@{calculate\_objective\_function}}
+\index{calculate\_objective\_function@{calculate\_objective\_function}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{calculate\_objective\_function()}{calculate\_objective\_function()}}
+{\footnotesize\ttfamily def utils.\+Cluster\+Holder.\+calculate\+\_\+objective\+\_\+function (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Calculate the objective function. 
+
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_a6db86c11ab353807799bd054d6c6af26}\label{classutils_1_1_cluster_holder_a6db86c11ab353807799bd054d6c6af26}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!find\_distance\_between\_clusters@{find\_distance\_between\_clusters}}
+\index{find\_distance\_between\_clusters@{find\_distance\_between\_clusters}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{find\_distance\_between\_clusters()}{find\_distance\_between\_clusters()}}
+{\footnotesize\ttfamily def utils.\+Cluster\+Holder.\+find\+\_\+distance\+\_\+between\+\_\+clusters (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+
+
+Calculates and returns distance between two cluster. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & ClusterA \\
+\hline
+{\em b} & ClusterB \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_ae17c8910b08ffb4da232eb87ccaaa053}\label{classutils_1_1_cluster_holder_ae17c8910b08ffb4da232eb87ccaaa053}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!get\_cluster\_by\_index@{get\_cluster\_by\_index}}
+\index{get\_cluster\_by\_index@{get\_cluster\_by\_index}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{get\_cluster\_by\_index()}{get\_cluster\_by\_index()}}
+{\footnotesize\ttfamily def utils.\+Cluster\+Holder.\+get\+\_\+cluster\+\_\+by\+\_\+index (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{index }\end{DoxyParamCaption})}
+
+
+
+Returns cluster by given index. 
+
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_a27609e039072cf111805c5eec1cfb2a6}\label{classutils_1_1_cluster_holder_a27609e039072cf111805c5eec1cfb2a6}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!get\_cluster\_distance\_of\_farthest\_points@{get\_cluster\_distance\_of\_farthest\_points}}
+\index{get\_cluster\_distance\_of\_farthest\_points@{get\_cluster\_distance\_of\_farthest\_points}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{get\_cluster\_distance\_of\_farthest\_points()}{get\_cluster\_distance\_of\_farthest\_points()}}
+{\footnotesize\ttfamily def utils.\+Cluster\+Holder.\+get\+\_\+cluster\+\_\+distance\+\_\+of\+\_\+farthest\+\_\+points (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Calculate and return distances of farthest point for each cluster. 
+
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_a1a9b0c59c8e00f47992938f09b80b96e}\label{classutils_1_1_cluster_holder_a1a9b0c59c8e00f47992938f09b80b96e}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!get\_data\_index\_by\_point@{get\_data\_index\_by\_point}}
+\index{get\_data\_index\_by\_point@{get\_data\_index\_by\_point}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{get\_data\_index\_by\_point()}{get\_data\_index\_by\_point()}}
+{\footnotesize\ttfamily def utils.\+Cluster\+Holder.\+get\+\_\+data\+\_\+index\+\_\+by\+\_\+point (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{point }\end{DoxyParamCaption})}
+
+
+
+Returns index of the point in data cloud. 
+
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_a76e76f734babc2045799c4f4a78671fe}\label{classutils_1_1_cluster_holder_a76e76f734babc2045799c4f4a78671fe}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!print\_cluster\_center\_nodes@{print\_cluster\_center\_nodes}}
+\index{print\_cluster\_center\_nodes@{print\_cluster\_center\_nodes}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{print\_cluster\_center\_nodes()}{print\_cluster\_center\_nodes()}}
+{\footnotesize\ttfamily def utils.\+Cluster\+Holder.\+print\+\_\+cluster\+\_\+center\+\_\+nodes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Generate clusters\textquotesingle{} center node info. 
+
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_a41689c382129730f580860fb8fa0cea0}\label{classutils_1_1_cluster_holder_a41689c382129730f580860fb8fa0cea0}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!print\_splitted\_clusters@{print\_splitted\_clusters}}
+\index{print\_splitted\_clusters@{print\_splitted\_clusters}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{print\_splitted\_clusters()}{print\_splitted\_clusters()}}
+{\footnotesize\ttfamily def utils.\+Cluster\+Holder.\+print\+\_\+splitted\+\_\+clusters (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Generate splitted cluster info. 
+
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_a4fdaaa1db8590b00579f71e3403e778d}\label{classutils_1_1_cluster_holder_a4fdaaa1db8590b00579f71e3403e778d}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!rewrite\_info@{rewrite\_info}}
+\index{rewrite\_info@{rewrite\_info}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{rewrite\_info()}{rewrite\_info()}}
+{\footnotesize\ttfamily def utils.\+Cluster\+Holder.\+rewrite\+\_\+info (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Update initial solution info Call this method when cluster points move or changes. 
+
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_a74d1f2164736036f8426e9785d37c588}\label{classutils_1_1_cluster_holder_a74d1f2164736036f8426e9785d37c588}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!split\_into\_clusters@{split\_into\_clusters}}
+\index{split\_into\_clusters@{split\_into\_clusters}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{split\_into\_clusters()}{split\_into\_clusters()}}
+{\footnotesize\ttfamily def utils.\+Cluster\+Holder.\+split\+\_\+into\+\_\+clusters (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Split datacloud into clusters. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_ad439c43e8ab6330738902316ba00a54e}\label{classutils_1_1_cluster_holder_ad439c43e8ab6330738902316ba00a54e}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!center\_points@{center\_points}}
+\index{center\_points@{center\_points}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{center\_points}{center\_points}}
+{\footnotesize\ttfamily utils.\+Cluster\+Holder.\+center\+\_\+points}
+
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_a32916c5ac29650dea0b9cd61a6d2306e}\label{classutils_1_1_cluster_holder_a32916c5ac29650dea0b9cd61a6d2306e}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!clusters@{clusters}}
+\index{clusters@{clusters}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{clusters}{clusters}}
+{\footnotesize\ttfamily utils.\+Cluster\+Holder.\+clusters}
+
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_a5b9eb2e8c69a61d00e858e6c839998fb}\label{classutils_1_1_cluster_holder_a5b9eb2e8c69a61d00e858e6c839998fb}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!data@{data}}
+\index{data@{data}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily utils.\+Cluster\+Holder.\+data}
+
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_ab003de13f8d9e541673b5b2f85923b48}\label{classutils_1_1_cluster_holder_ab003de13f8d9e541673b5b2f85923b48}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!info@{info}}
+\index{info@{info}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{info}{info}}
+{\footnotesize\ttfamily utils.\+Cluster\+Holder.\+info}
+
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_a814bc764fd669cc3dc96a0e538f00d2f}\label{classutils_1_1_cluster_holder_a814bc764fd669cc3dc96a0e538f00d2f}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!labels@{labels}}
+\index{labels@{labels}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{labels}{labels}}
+{\footnotesize\ttfamily utils.\+Cluster\+Holder.\+labels}
+
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_a43dcf11f71e38245edfd1431ce6b5d42}\label{classutils_1_1_cluster_holder_a43dcf11f71e38245edfd1431ce6b5d42}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!n\_clusters@{n\_clusters}}
+\index{n\_clusters@{n\_clusters}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{n\_clusters}{n\_clusters}}
+{\footnotesize\ttfamily utils.\+Cluster\+Holder.\+n\+\_\+clusters}
+
+\mbox{\Hypertarget{classutils_1_1_cluster_holder_a27578e31895d0f6d6638e966a7cd8304}\label{classutils_1_1_cluster_holder_a27578e31895d0f6d6638e966a7cd8304}} 
+\index{utils.ClusterHolder@{utils.ClusterHolder}!objective\_function@{objective\_function}}
+\index{objective\_function@{objective\_function}!utils.ClusterHolder@{utils.ClusterHolder}}
+\doxysubsubsection{\texorpdfstring{objective\_function}{objective\_function}}
+{\footnotesize\ttfamily utils.\+Cluster\+Holder.\+objective\+\_\+function}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{utils_8py}{utils.\+py}}\end{DoxyCompactItemize}
